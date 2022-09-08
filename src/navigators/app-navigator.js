@@ -9,7 +9,6 @@ import { TransactionForm, Dashboard, Settings, Categories, Accounts, Labels, Cat
 import DrawerContent from "../components/drawer"
 import { useDarkTheme } from "../utils/ui-utils"
 import { isIos } from "../utils/os-utils"
-import { Modal } from "react-native"
 
 const MainStack = createStackNavigator()
 const RootStack = createStackNavigator()

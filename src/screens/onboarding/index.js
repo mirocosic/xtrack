@@ -67,10 +67,11 @@ const Onboarding = ({ navigation }) => {
     extrapolate: "clamp",
   })
 
-  useEffect(() => {setTimeout(() => SplashScreen.hide(), 600), []})
+  useEffect(() => {
+    setTimeout(() => SplashScreen.hide(), 600)
+  }, [])
 
   return (
-    
     <Screen>
       <Backdrop scrollX={scrollX} />
 
@@ -89,7 +90,7 @@ const Onboarding = ({ navigation }) => {
       </View>
 
       <View style={{ height: "30%", flexDirection: "row", position: "absolute", width, bottom: 0, paddingTop: 40, justifyContent: "center" }}>
-        {screens.map((screenIdx) => {
+        {screens.map(screenIdx => {
           const opacity = scrollX.interpolate({
             inputRange: [(screenIdx - 2) * width, (screenIdx - 1) * width, width * screenIdx],
             outputRange: [0.5, 1, 0.5],
@@ -100,52 +101,29 @@ const Onboarding = ({ navigation }) => {
             outputRange: [1, 1.3, 1],
             extrapolate: "clamp",
           })
-          return (
-            <Animated.View
-              key={`dot-${screenIdx}`}
-              style={{ margin: 5, width: 15, height: 15, backgroundColor: "white", opacity, transform: [{ scale }], borderRadius: 15 }}
-            />
-          )
+          return <Animated.View key={`dot-${screenIdx}`} style={{ margin: 5, width: 15, height: 15, backgroundColor: "white", opacity, transform: [{ scale }], borderRadius: 15 }} />
         })}
       </View>
 
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        pagingEnabled
-        style={{ flex: 1 }}
-        scrollEventThrottle={16}
-        onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], { useNativeDriver: false })}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} pagingEnabled style={{ flex: 1 }} scrollEventThrottle={16} onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], { useNativeDriver: false })}>
         <View style={{ flex: 1, width, alignItems: "center", justifyContent: "center", padding: 20 }}>
           <View style={{ marginTop: 150 }}>
-            <Animated.Text style={{ textAlign: "center", color: "white", fontSize: 30, fontWeight: "800", transform: [{ translateX: trans1 }] }}>
-              {__("Become a master of your finances")}
-            </Animated.Text>
-            <Text style={{ textAlign: "center", marginTop: 20, color: "white", fontSize: 16 }}>
-              Do you feel like you have no idea where your money goes? Would you like to know your spending habits?
-            </Text>
+            <Animated.Text style={{ textAlign: "center", color: "white", fontSize: 30, fontWeight: "800", transform: [{ translateX: trans1 }] }}>{__("Become a master of your finances")}</Animated.Text>
+            <Text style={{ textAlign: "center", marginTop: 20, color: "white", fontSize: 16 }}>Do you feel like you have no idea where your money goes? Would you like to know your spending habits?</Text>
           </View>
         </View>
 
         <View style={{ flex: 1, width, alignItems: "center", justifyContent: "center", padding: 20 }}>
           <View style={{ marginTop: 150 }}>
-            <Animated.Text style={{ textAlign: "center", color: "white", fontSize: 30, fontWeight: "800", transform: [{ translateX: trans2 }] }}>
-              {__("Secure your financial future")}
-            </Animated.Text>
-            <Text style={{ textAlign: "center", marginTop: 20, color: "white", fontSize: 16 }}>
-              Are you afraid of retirement age and not sure that you'll be financialy safe? Take control of your finances and be sure about your financial future! 
-            </Text>
+            <Animated.Text style={{ textAlign: "center", color: "white", fontSize: 30, fontWeight: "800", transform: [{ translateX: trans2 }] }}>{__("Secure your financial future")}</Animated.Text>
+            <Text style={{ textAlign: "center", marginTop: 20, color: "white", fontSize: 16 }}>Are you afraid of retirement age and not sure that you'll be financialy safe? Take control of your finances and be sure about your financial future!</Text>
           </View>
         </View>
 
         <View style={{ flex: 1, width, alignItems: "center", justifyContent: "center", padding: 20 }}>
           <View style={{ marginTop: 150 }}>
-            <Animated.Text style={{ textAlign: "center", color: "white", fontSize: 30, fontWeight: "800", transform: [{ translateX: trans3 }] }}>
-              {__("Track all your expenses in one place")}
-            </Animated.Text>
-            <Text style={{ textAlign: "center", marginTop: 20, color: "white", fontSize: 16 }}>
-              XTrack will enable you to have an in-depth knowledge of your finances at a glance!
-            </Text>
+            <Animated.Text style={{ textAlign: "center", color: "white", fontSize: 30, fontWeight: "800", transform: [{ translateX: trans3 }] }}>{__("Track all your expenses in one place")}</Animated.Text>
+            <Text style={{ textAlign: "center", marginTop: 20, color: "white", fontSize: 16 }}>XTrack will enable you to have an in-depth knowledge of your finances at a glance!</Text>
           </View>
         </View>
       </ScrollView>
@@ -161,9 +139,8 @@ const Onboarding = ({ navigation }) => {
           opacity: opacityBtn,
           transform: [{ translateY: positionY }],
         }}>
-          <View style={{ overflow:"hidden", width: 300, borderColor: "white", borderRadius: 25, height: 50 }}>
+        <View style={{ overflow: "hidden", width: 300, borderColor: "white", borderRadius: 25, height: 50 }}>
           <RectButton
-            
             onPress={() => {
               AsyncStorage.setItem("@onboarding-done", "true")
               navigation.navigate("Main")
@@ -172,7 +149,7 @@ const Onboarding = ({ navigation }) => {
               <Copy style={{ fontSize: 16, fontWeight: "bold", color: "white" }}>Let's go!</Copy>
             </View>
           </RectButton>
-          </View>
+        </View>
       </Animated.View>
     </Screen>
   )

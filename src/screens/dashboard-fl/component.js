@@ -164,18 +164,6 @@ export default props => {
     const currentItemIndex = items.findIndex(i => i.id === item.id)
     const currentMonthIndex = items.findIndex(item => item.id === 0)
 
-    const transX = scrollX.interpolate({
-      inputRange: [(currentItemIndex - 1) * WIDTH, currentItemIndex * WIDTH, WIDTH * (currentItemIndex + 1)],
-      outputRange: [200, 0, -200],
-    })
-
-    // todo: fix opacity animation
-    const opacity = scrollX.interpolate({
-      inputRange: [(currentItemIndex - 1) * WIDTH, currentItemIndex * WIDTH, WIDTH * (currentItemIndex + 1)],
-      outputRange: [0, 1, 0],
-      extrapolate: "clamp",
-    })
-
     return (
       <Animated.ScrollView style={[styles.monthContainer]}>
         <View style={[styles.inlineBetween, { marginTop: 15, marginBottom: 15 }]}>

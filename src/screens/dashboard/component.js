@@ -265,12 +265,6 @@ class Dashboard extends Component {
               extrapolate: "clamp",
             })
 
-            const scale = this.state.scrollX.interpolate({
-              inputRange: [(idx - 1) * width, idx * width, width * (idx + 1)],
-              outputRange: [0.9, 1, 0.9],
-              extrapolate: "clamp",
-            })
-
             const transX = this.state.scrollX.interpolate({
               inputRange: [(idx - 1) * width, idx * width, width * (idx + 1)],
               outputRange: [200, 0, -200],
@@ -441,12 +435,6 @@ class Dashboard extends Component {
             const opacity = this.state.scrollX.interpolate({
               inputRange,
               outputRange: [0, 1, 0],
-              extrapolate: "clamp",
-            })
-
-            const scale = this.state.scrollX.interpolate({
-              inputRange,
-              outputRange: [0.9, 1, 0.9],
               extrapolate: "clamp",
             })
 

@@ -1,15 +1,12 @@
 import React from "react"
-import { View } from "react-native"
 import ReactNativeHapticFeedback from "react-native-haptic-feedback"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { useDarkMode } from "react-native-dark-mode"
-import { RectButton, TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler"
+import { TouchableOpacity } from "react-native-gesture-handler"
 import LinearGradient from "react-native-linear-gradient"
 
-import { Dashboard, Overview, Settings, Transactions, DashboardFL } from "../screens"
+import { Overview, Settings, Transactions, DashboardFL } from "../screens"
 import Icon from "../components/icon"
 import palette from "../utils/palette"
-import { font } from "../components/typography"
 import { safePaddingBottom, useDarkTheme } from "../utils/ui-utils"
 import __ from "../utils/translations"
 
