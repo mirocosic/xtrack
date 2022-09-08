@@ -47,7 +47,7 @@ export default props => {
     const state = store.getState()
 
     //append state to backups
-    const newBackups = [...parsedBackups, { id: makeUUID(), name: moment().format("DD/MM/yyyy HH:MM:ss") + " - " + props.appVersion, data: state }]
+    const newBackups = [...parsedBackups, { id: makeUUID(), name: moment().format("DD/MM/yyyy HH:MM:ss") + " - " + "2.0.1 (2)", data: state }]
 
     //save to storage
     //await setItem(JSON.stringify(newBackups))
