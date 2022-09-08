@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, Appearance, Alert, Dimensions, StatusBar, TouchableOpacity, Animated } from "react-native"
+import { View, Appearance, Alert, Dimensions, TouchableOpacity, Animated } from "react-native"
 import { get, isEmpty } from "lodash"
 import moment from "moment"
 import SplashScreen from "react-native-splash-screen"
@@ -7,34 +7,23 @@ import { Modalize } from "react-native-modalize"
 import { Portal } from "react-native-portalize"
 import { RectButton } from "react-native-gesture-handler"
 
-import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart
-} from "react-native-chart-kit";
-
+import { PieChart } from "react-native-chart-kit"
 
 import { Screen, Icon, Copy, Title, Transaction } from "../../components"
 import __ from "../../utils/translations"
 import { formatCurrency } from "../../utils/currency"
 import palette from "../../utils/palette"
 import { calcAmount } from "../../utils/helper-gnomes"
-import { isIos } from "../../utils/os-utils"
 import styles from "./styles"
 
 const compare = (a, b) => {
-
   if (a.categoryId < b.categoryId) {
-    return -1;
+    return -1
   }
   if (a.categoryId > b.categoryId) {
-    return 1;
+    return 1
   }
-  return 0;
-
+  return 0
 }
 
 const months = [...Array(24).keys()]
@@ -53,19 +42,24 @@ const filterByCategory = (transactions, categoryId) => transactions.filter(t => 
 const renderBudget = (value, budget) => {
   const result = Math.round((value / budget) * 100)
   let color = false
-  if (result >= 100) { color = palette.red } else if (result >= 80) { color = palette.orange } else { color = false }
-  const copyStyle = color ? {fontSize: 12, color} : {fontSize: 12}
+  if (result >= 100) {
+    color = palette.red
+  } else if (result >= 80) {
+    color = palette.orange
+  } else {
+    color = false
+  }
+  const copyStyle = color ? { fontSize: 12, color } : { fontSize: 12 }
   return budget && budget > 0 && <Copy style={copyStyle}>({result}%)</Copy>
 }
 
 class Dashboard extends Component {
-
   state = {
     showScrollToEnd: false,
     showScrollToStart: false,
     breakdownTransactions: [],
     scrollX: new Animated.Value(0),
-    showExpensesChart: true
+    showExpensesChart: true,
   }
 
   breakdownModal = React.createRef()
@@ -76,14 +70,14 @@ class Dashboard extends Component {
     const { route, navigation, openOnForm } = this.props
     const { width } = Dimensions.get("window")
     setTimeout(() => this.scrollView.scrollTo({ x: width * 23, y: 0, animated: false }), 100)
-    setTimeout((()=> openOnForm && navigation.navigate("TransactionForm", { clearForm: true })), 0)
+    setTimeout(() => openOnForm && navigation.navigate("TransactionForm", { clearForm: true }), 0)
     setTimeout(() => SplashScreen.hide(), 500)
   }
 
-  sortByCategory = (expenses) => {
+  sortByCategory = expenses => {
     const result = {}
     const { categories } = this.props
-    expenses.forEach((expense) => {
+    expenses.forEach(expense => {
       const category = categories.find(cat => cat.id === expense.categoryId)
       const currExpenseSum = result[category?.name] || 0
       result[category?.name] = currExpenseSum + calcAmount(expense)
@@ -97,14 +91,17 @@ class Dashboard extends Component {
     Alert.alert(
       __("Select account"),
       __("Please choose account"),
-      accounts.map(account => (
-        { text: account?.name, onPress: () => changeAccountFilter(account) }
-      )),
+      accounts.map(account => ({
+        text: account?.name,
+        onPress: () => changeAccountFilter(account),
+      })),
     )
   }
 
   calcSavingsRate = (income, expenses) => {
-    if (income === 0 || income < expenses) { return "0%" }
+    if (income === 0 || income < expenses) {
+      return "0%"
+    }
     const rate = (((income - expenses) / income) * 100).toFixed(2)
     let emoji = ""
     if (rate > 75) {
@@ -119,7 +116,7 @@ class Dashboard extends Component {
     return `${rate}% ${emoji}`
   }
 
-  handleScroll = (event) => {
+  handleScroll = event => {
     const { width } = Dimensions.get("window")
     if (event.nativeEvent.contentOffset.x < width * 23) {
       this.setState({ showScrollToEnd: true, showScrollToStart: false })
@@ -132,7 +129,7 @@ class Dashboard extends Component {
     // this.setState({ title: moment().subtract(screenNum, "month").format("MMMM") })
   }
 
-  prepDataForPieChart = (expenses) => {
+  prepDataForPieChart = expenses => {
     // rewrite this darkmode labels stupidity
     const { theme } = this.props
     const systemTheme = Appearance.getColorScheme()
@@ -140,24 +137,22 @@ class Dashboard extends Component {
 
     return Object.entries(expenses)
       .sort((a, b) => b[1] - a[1])
-      .map((item) => {
+      .map(item => {
         const { categories } = this.props
         const cat = categories.find(c => c.name === item[0])
         return {
           name: item[0],
           amount: item[1],
           color: cat.color,
-          legendFontColor: darkMode ? "white" : "black"
-
+          legendFontColor: darkMode ? "white" : "black",
         }
       })
-    }
+  }
 
-
-  renderExpenses = (expenses, currentMonthTransactions, modal) => (
+  renderExpenses = (expenses, currentMonthTransactions, modal) =>
     Object.entries(expenses)
       .sort((a, b) => b[1] - a[1])
-      .map((item) => {
+      .map(item => {
         const { categories } = this.props
         const cat = categories.find(c => c.name === item[0])
         return (
@@ -165,27 +160,27 @@ class Dashboard extends Component {
             key={item[0]}
             style={{ ...styles.row, paddingLeft: 10, flex: 1 }}
             onPress={() => {
-              this.setState({ breakdownTransactions: filterByCategory(currentMonthTransactions, cat.id) })
+              this.setState({
+                breakdownTransactions: filterByCategory(currentMonthTransactions, cat.id),
+              })
               this.breakdownModal.current.open()
-            }}
-          >
-            <View style={{ flexDirection: "row", alignItems: "center", flex: 1, paddingRight: 15 }}>
-              <Icon
-                type={get(cat, "icon", "")}
-                textStyle={{ color: cat.color || "blue", fontSize: 12 }}
-                style={{ marginRight: 5, width: 20, height: 20 }}
-              />
-              <Copy style={{ fontSize: 14 }}>{`${item[0]} `} { renderBudget(item[1], cat.budget) } </Copy>
-
+            }}>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                flex: 1,
+                paddingRight: 15,
+              }}>
+              <Icon type={get(cat, "icon", "")} textStyle={{ color: cat.color || "blue", fontSize: 12 }} style={{ marginRight: 5, width: 20, height: 20 }} />
+              <Copy style={{ fontSize: 14 }}>
+                {`${item[0]} `} {renderBudget(item[1], cat.budget)}{" "}
+              </Copy>
             </View>
-            <Copy style={{ fontSize: 14 }}>
-              {` ${formatCurrency(item[1])} `}
-            </Copy>
-
+            <Copy style={{ fontSize: 14 }}>{` ${formatCurrency(item[1])} `}</Copy>
           </TouchableOpacity>
         )
       })
-  )
 
   renderActionBtn = () => {
     const { showScrollToEnd, showScrollToStart } = this.state
@@ -207,7 +202,7 @@ class Dashboard extends Component {
       )
     }
 
-    return (null)
+    return null
   }
 
   render() {
@@ -215,75 +210,108 @@ class Dashboard extends Component {
     const { width } = Dimensions.get("window")
     const currentMonth = moment()
     currentMonth.subtract(24, "month")
-    const systemTheme = Appearance.getColorScheme();
+    const systemTheme = Appearance.getColorScheme()
     const darkMode = theme === "system" ? systemTheme === "dark" : theme === "dark"
 
     return (
       <Screen>
-
         <Animated.ScrollView
           horizontal
           pagingEnabled
-          ref={(ref) => { this.scrollView = ref }}
+          ref={ref => {
+            this.scrollView = ref
+          }}
           scrollEventThrottle={16}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { x: this.state.scrollX } } }],
-            { useNativeDriver: false },
-          )}
+          onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: this.state.scrollX } } }], { useNativeDriver: false })}
           showsHorizontalScrollIndicator={false}>
-
-          { months.map((month, idx) => {
+          {months.map((month, idx) => {
             currentMonth.add(1, "month")
-            const sortedExpenses = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth.toDate()))
-            const sortedIncome = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth.toDate()))
-            const income = sum(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth.toDate()))
-            const expenses = sum(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth.toDate()))
-            const currentMonthTransactions = filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth.toDate()).sort(compare)
-            const currentMonthIncome = filterByMonth(transactions.filter(t => t.type === "income"), currentMonth.toDate()).sort(compare)
-
+            const sortedExpenses = this.sortByCategory(
+              filterByMonth(
+                transactions.filter(t => t.type === "expense"),
+                currentMonth.toDate(),
+              ),
+            )
+            const sortedIncome = this.sortByCategory(
+              filterByMonth(
+                transactions.filter(t => t.type === "income"),
+                currentMonth.toDate(),
+              ),
+            )
+            const income = sum(
+              filterByMonth(
+                transactions.filter(t => t.type === "income"),
+                currentMonth.toDate(),
+              ),
+            )
+            const expenses = sum(
+              filterByMonth(
+                transactions.filter(t => t.type === "expense"),
+                currentMonth.toDate(),
+              ),
+            )
+            const currentMonthTransactions = filterByMonth(
+              transactions.filter(t => t.type === "expense"),
+              currentMonth.toDate(),
+            ).sort(compare)
+            const currentMonthIncome = filterByMonth(
+              transactions.filter(t => t.type === "income"),
+              currentMonth.toDate(),
+            ).sort(compare)
 
             const opacity = this.state.scrollX.interpolate({
-              inputRange: [(idx - 1) * width, idx * width , width * (idx + 1)],
+              inputRange: [(idx - 1) * width, idx * width, width * (idx + 1)],
               outputRange: [0, 1, 0],
               extrapolate: "clamp",
             })
 
             const scale = this.state.scrollX.interpolate({
-              inputRange: [(idx - 1) * width, idx * width , width * (idx + 1)],
+              inputRange: [(idx - 1) * width, idx * width, width * (idx + 1)],
               outputRange: [0.9, 1, 0.9],
               extrapolate: "clamp",
             })
 
             const transX = this.state.scrollX.interpolate({
-              inputRange: [(idx - 1) * width, idx * width , width * (idx + 1)],
+              inputRange: [(idx - 1) * width, idx * width, width * (idx + 1)],
               outputRange: [200, 0, -200],
             })
 
             const bg = this.state.scrollX.interpolate({
-              inputRange: [(idx - 1) * width, idx * width , width * (idx + 1)],
+              inputRange: [(idx - 1) * width, idx * width, width * (idx + 1)],
               outputRange: ["rgb(7, 16,145)", "rgb(13,61,251)", "rgb(7, 16,145)"],
             })
 
             return (
-              <Animated.ScrollView key={month} style={[styles.monthContainer, {opacity}]}>
-
+              <Animated.ScrollView key={month} style={[styles.monthContainer, { opacity }]}>
                 <View style={[styles.inlineBetween, { marginTop: 15, marginBottom: 15 }]}>
                   <View />
-                  <Animated.View style={{transform: [{translateX: transX}]}}>
+                  <Animated.View style={{ transform: [{ translateX: transX }] }}>
                     <Title>{currentMonth.format("MMMM YYYY")}</Title>
                   </Animated.View>
 
-                  { idx !== 23
-                    ? (
-                      <TouchableOpacity onPress={() => this.scrollView.scrollTo({ x: width * 23, animated: true })}
-                                        hitSlop={{top: 10, right: 10, bottom: 10, left: 10}}>
-                        <View style={[styles.inline, { width: 10 }]}>
-                          <Icon type="forward" style={{ marginRight: 5 }} textStyle={{ fontSize: 12, color: darkMode ? palette.light : palette.dark }} />
-                        </View>
-                      </TouchableOpacity>
-                    ) : <View />
-                  }
-
+                  {idx !== 23 ? (
+                    <TouchableOpacity
+                      onPress={() =>
+                        this.scrollView.scrollTo({
+                          x: width * 23,
+                          animated: true,
+                        })
+                      }
+                      hitSlop={{ top: 10, right: 10, bottom: 10, left: 10 }}>
+                      <View style={[styles.inline, { width: 10 }]}>
+                        <Icon
+                          type="forward"
+                          style={{ marginRight: 5 }}
+                          textStyle={{
+                            fontSize: 12,
+                            color: darkMode ? palette.light : palette.dark,
+                          }}
+                        />
+                      </View>
+                    </TouchableOpacity>
+                  ) : (
+                    <View />
+                  )}
                 </View>
 
                 <TouchableOpacity
@@ -298,11 +326,12 @@ class Dashboard extends Component {
 
                 {this.renderExpenses(sortedIncome, currentMonthIncome)}
 
-
                 <TouchableOpacity
                   style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}
                   onPress={() => {
-                    this.setState({ breakdownTransactions: currentMonthTransactions })
+                    this.setState({
+                      breakdownTransactions: currentMonthTransactions,
+                    })
                     this.breakdownModal.current.open()
                   }}>
                   <Copy style={{ fontSize: 18 }}>Expenses: </Copy>
@@ -321,13 +350,7 @@ class Dashboard extends Component {
                   <Copy style={{ fontSize: 18, color: palette.blue }}>{this.calcSavingsRate(income, expenses)}</Copy>
                 </View>
 
-
-
-
-
-
-                <View style={{paddingTop: 50, paddingBottom: 50}}>
-
+                <View style={{ paddingTop: 50, paddingBottom: 50 }}>
                   {/* <BarChart
                     style={{
                       marginVertical: 8,
@@ -352,28 +375,18 @@ class Dashboard extends Component {
                     }}
                   /> */}
 
-
-
                   <View style={[styles.inline]}>
-
-                    {
-                      !isEmpty(sortedExpenses) &&
-                      <RectButton onPress={() => this.setState({showExpensesChart: true})}
-                        style={[styles.chartTab, this.state.showExpensesChart && styles.chartTabSelected]}>
-                        <Copy style={this.state.showExpensesChart && {color: "white"}}>Expenses</Copy>
+                    {!isEmpty(sortedExpenses) && (
+                      <RectButton onPress={() => this.setState({ showExpensesChart: true })} style={[styles.chartTab, this.state.showExpensesChart && styles.chartTabSelected]}>
+                        <Copy style={this.state.showExpensesChart && { color: "white" }}>Expenses</Copy>
                       </RectButton>
-                    }
-                    
+                    )}
 
-                    {
-                      !isEmpty(sortedIncome) &&
-                      <RectButton onPress={() => this.setState({showExpensesChart: false})}
-                        style={[styles.chartTab, !this.state.showExpensesChart && styles.chartTabSelected, darkMode && styles.chartTabDark]}>
-                        <Copy style={!this.state.showExpensesChart && {color: "white"}}>Income</Copy>
+                    {!isEmpty(sortedIncome) && (
+                      <RectButton onPress={() => this.setState({ showExpensesChart: false })} style={[styles.chartTab, !this.state.showExpensesChart && styles.chartTabSelected, darkMode && styles.chartTabDark]}>
+                        <Copy style={!this.state.showExpensesChart && { color: "white" }}>Income</Copy>
                       </RectButton>
-                    }
-                    
-                    
+                    )}
                   </View>
 
                   <PieChart
@@ -384,29 +397,46 @@ class Dashboard extends Component {
                     chartConfig={{
                       color: (opacity = 1) => `rgba(150, 215, 115, ${opacity})`,
                       style: {
-                        borderRadius: 16
+                        borderRadius: 16,
                       },
                     }}
                     style={{
                       marginVertical: 8,
-                      borderRadius: 16
+                      borderRadius: 16,
                     }}
                   />
                 </View>
-
-
               </Animated.ScrollView>
             )
-
           })}
 
           {futureMonths.map((month, idx) => {
             currentMonth.add(1, "month")
-            const sortedExpenses = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth.toDate()))
-            const sortedIncome = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth.toDate()))
-            const income = sum(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth.toDate()))
-            const expenses = sum(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth.toDate()))
-            const inputRange = [(idx + 24 - 1) * width, (idx + 24) * width , width * (idx + 24 + 1)]
+            const sortedExpenses = this.sortByCategory(
+              filterByMonth(
+                transactions.filter(t => t.type === "expense"),
+                currentMonth.toDate(),
+              ),
+            )
+            const sortedIncome = this.sortByCategory(
+              filterByMonth(
+                transactions.filter(t => t.type === "income"),
+                currentMonth.toDate(),
+              ),
+            )
+            const income = sum(
+              filterByMonth(
+                transactions.filter(t => t.type === "income"),
+                currentMonth.toDate(),
+              ),
+            )
+            const expenses = sum(
+              filterByMonth(
+                transactions.filter(t => t.type === "expense"),
+                currentMonth.toDate(),
+              ),
+            )
+            const inputRange = [(idx + 24 - 1) * width, (idx + 24) * width, width * (idx + 24 + 1)]
 
             const opacity = this.state.scrollX.interpolate({
               inputRange,
@@ -426,23 +456,34 @@ class Dashboard extends Component {
             })
 
             return (
-              <Animated.ScrollView key={month} style={[styles.monthContainer, {opacity}]}>
-
+              <Animated.ScrollView key={month} style={[styles.monthContainer, { opacity }]}>
                 <View style={[styles.inlineBetween, { marginTop: 15, marginBottom: 15 }]}>
-                  <TouchableOpacity onPress={() => this.scrollView.scrollTo({ x: width * 23, animated: true })}
-                                    hitSlop={{top: 10, right: 10, bottom: 10, left: 10}}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      this.scrollView.scrollTo({
+                        x: width * 23,
+                        animated: true,
+                      })
+                    }
+                    hitSlop={{ top: 10, right: 10, bottom: 10, left: 10 }}>
                     <View style={[styles.inline, { width: 10 }]}>
-                      <Icon type="backward" style={{ marginLeft: 2 }} textStyle={{ fontSize: 12, color: darkMode ? palette.light : palette.dark }} />
+                      <Icon
+                        type="backward"
+                        style={{ marginLeft: 2 }}
+                        textStyle={{
+                          fontSize: 12,
+                          color: darkMode ? palette.light : palette.dark,
+                        }}
+                      />
                     </View>
                   </TouchableOpacity>
 
-                  <Animated.View style={{transform: [{translateX: transX}]}}>
+                  <Animated.View style={{ transform: [{ translateX: transX }] }}>
                     <Title>{currentMonth.format("MMMM YYYY")}</Title>
                   </Animated.View>
 
                   <View />
                 </View>
-
 
                 <View style={[styles.inlineBetween, { marginBottom: 10 }]}>
                   <Copy style={{ fontSize: 18 }}>Income: </Copy>
@@ -468,27 +509,19 @@ class Dashboard extends Component {
                   <Copy style={{ fontSize: 18, color: palette.blue }}>{this.calcSavingsRate(income, expenses)}</Copy>
                 </View>
 
-
-                <View style={{paddingTop: 50, paddingBottom: 50}}>
+                <View style={{ paddingTop: 50, paddingBottom: 50 }}>
                   <View style={[styles.inline]}>
-
-                    {
-                      !isEmpty(sortedExpenses) &&
-                      <RectButton onPress={() => this.setState({showExpensesChart: true})}
-                        style={[styles.chartTab, this.state.showExpensesChart && styles.chartTabSelected]}>
+                    {!isEmpty(sortedExpenses) && (
+                      <RectButton onPress={() => this.setState({ showExpensesChart: true })} style={[styles.chartTab, this.state.showExpensesChart && styles.chartTabSelected]}>
                         <Copy>Expenses</Copy>
                       </RectButton>
-                    }
+                    )}
 
-                    {
-                      !isEmpty(sortedIncome) &&
-                      <RectButton onPress={() => this.setState({showExpensesChart: false})}
-                        style={[styles.chartTab, !this.state.showExpensesChart && styles.chartTabSelected]}>
+                    {!isEmpty(sortedIncome) && (
+                      <RectButton onPress={() => this.setState({ showExpensesChart: false })} style={[styles.chartTab, !this.state.showExpensesChart && styles.chartTabSelected]}>
                         <Copy>Income</Copy>
                       </RectButton>
-                    }
-                    
-                    
+                    )}
                   </View>
 
                   <PieChart
@@ -499,20 +532,18 @@ class Dashboard extends Component {
                     chartConfig={{
                       color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                       style: {
-                        borderRadius: 16
+                        borderRadius: 16,
                       },
                     }}
                     style={{
                       marginVertical: 8,
-                      borderRadius: 16
+                      borderRadius: 16,
                     }}
                   />
                 </View>
-
               </Animated.ScrollView>
             )
           })}
-
         </Animated.ScrollView>
 
         <Portal>
@@ -525,17 +556,12 @@ class Dashboard extends Component {
               showsVerticalScrollIndicator: false,
               data: this.state.breakdownTransactions,
               initialNumToRender: 20,
-              renderItem: ({ item }) => (
-                <Transaction
-                  key={item.id}
-                  transaction={item}
-                  navigation={navigation} 
-                  handlePress={() => this.breakdownModal.current.close()}/>),
+              renderItem: ({ item }) => <Transaction key={item.id} transaction={item} navigation={navigation} handlePress={() => this.breakdownModal.current.close()} />,
               keyExtractor: item => item.id,
             }}
-            ref={this.breakdownModal} />
+            ref={this.breakdownModal}
+          />
         </Portal>
-
       </Screen>
     )
   }

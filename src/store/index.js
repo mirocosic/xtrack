@@ -12,13 +12,13 @@ import labels from "./labels/reducer"
 import rootSaga from "./sagas"
 import { reduxStorage } from "./async-storage"
 
-const sagaMiddleware = createSagaMiddleware();
+const sagaMiddleware = createSagaMiddleware()
 
 const persistConfig = {
   key: "root",
   storage: reduxStorage,
   stateReconciler: autoMergeLevel2, // see "Merge Process" section for details.
-};
+}
 
 const reducers = combineReducers({
   common,
@@ -30,7 +30,10 @@ const reducers = combineReducers({
 
 const pReducer = persistReducer(persistConfig, reducers)
 
-export const store = createStore(pReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)))
+export const store = createStore(
+  pReducer,
+  composeWithDevTools(applyMiddleware(sagaMiddleware)),
+)
 export const persistor = persistStore(store)
 
-sagaMiddleware.run(rootSaga);
+sagaMiddleware.run(rootSaga)

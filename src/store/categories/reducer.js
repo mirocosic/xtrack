@@ -3,7 +3,6 @@ import { makeUUID } from "../../utils/helper-gnomes"
 
 const categories = (state = initialState, action) => {
   switch (action.type) {
-
     // TODO: check if this is extra?
     case "ADD_NEW_CATEGORY":
       return {
@@ -27,7 +26,7 @@ const categories = (state = initialState, action) => {
               return {
                 ...item,
                 defaultCategory: false,
-              } 
+              }
             } else {
               return item
             }
@@ -39,7 +38,8 @@ const categories = (state = initialState, action) => {
             type: action.category.type,
             icon: action.category.icon,
             color: action.category.color,
-            defaultCategory: action.category.defaultCategory || state.items.length === 0,
+            defaultCategory:
+              action.category.defaultCategory || state.items.length === 0,
           },
         ],
       }
@@ -47,9 +47,11 @@ const categories = (state = initialState, action) => {
     case "EDIT_CATEGORY":
       return {
         ...state,
-        items: state.items.map((item) => {
-          if (item.id !== action.category.id) return item;
-          return action.category;
+        items: state.items.map(item => {
+          if (item.id !== action.category.id) {
+            return item
+          }
+          return action.category
         }),
       }
 
@@ -63,7 +65,7 @@ const categories = (state = initialState, action) => {
       console.log(action.category)
       return {
         ...state,
-        items: state.items.map((item) => {
+        items: state.items.map(item => {
           if (item.id !== action.category.id) {
             return {
               ...item,
@@ -72,7 +74,7 @@ const categories = (state = initialState, action) => {
           } else {
             return {
               ...item,
-              defaultCategory: true
+              defaultCategory: true,
             }
           }
         }),
@@ -109,9 +111,8 @@ const categories = (state = initialState, action) => {
       return action.data.categories
 
     default:
-      return state;
+      return state
   }
-
 }
 
-export default categories;
+export default categories

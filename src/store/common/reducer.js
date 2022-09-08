@@ -1,8 +1,7 @@
-import initialState from "./initial-state";
+import initialState from "./initial-state"
 
 const common = (state = initialState, action) => {
   switch (action.type) {
-
     case "SET_DARK_MODE":
       return {
         ...state,
@@ -61,9 +60,8 @@ const common = (state = initialState, action) => {
       return action.data.common
 
     default:
-      return state;
+      return state
   }
-
 }
 
-export default common;
+export default common

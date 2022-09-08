@@ -3,13 +3,17 @@ import { makeUUID } from "../../utils/helper-gnomes"
 
 const categories = (state = initialState, action) => {
   switch (action.type) {
-
     case "ADD_ACCOUNT": {
-      const { name, icon, color, defaultAccount, startingBalance, currency } = action.account
+      const { name, icon, color, defaultAccount, startingBalance, currency } =
+        action.account
       return {
         ...state,
         items: [
-          ...state.items.map(item => action.account.defaultAccount ? {...item, defaultAccount: false} : item),
+          ...state.items.map(item =>
+            action.account.defaultAccount
+              ? { ...item, defaultAccount: false }
+              : item,
+          ),
           {
             id: makeUUID(),
             name,
@@ -17,7 +21,8 @@ const categories = (state = initialState, action) => {
             color,
             startingBalance,
             currency,
-            defaultAccount: action.account.defaultAccount || state.items.length === 0,
+            defaultAccount:
+              action.account.defaultAccount || state.items.length === 0,
           },
         ],
       }
@@ -26,9 +31,11 @@ const categories = (state = initialState, action) => {
     case "EDIT_ACCOUNT":
       return {
         ...state,
-        items: state.items.map((item) => {
-          if (item.id !== action.account.id) return item;
-          return action.account;
+        items: state.items.map(item => {
+          if (item.id !== action.account.id) {
+            return item
+          }
+          return action.account
         }),
       }
 
@@ -41,14 +48,14 @@ const categories = (state = initialState, action) => {
     case "SET_DEFAULT_ACCOUNT":
       return {
         ...state,
-        items: state.items.map((item) => {
+        items: state.items.map(item => {
           if (item.id !== action.account.id) {
             return {
               ...item,
               defaultAccount: false,
             }
           }
-          return action.account;
+          return action.account
         }),
       }
 
@@ -80,12 +87,11 @@ const categories = (state = initialState, action) => {
       return { ...initialState }
 
     case "RESTORE_BACKUP":
-      return action.data.accounts 
+      return action.data.accounts
 
     default:
-      return state;
+      return state
   }
-
 }
 
-export default categories;
+export default categories

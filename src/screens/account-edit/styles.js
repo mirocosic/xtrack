@@ -19,14 +19,13 @@ export default StyleSheet.create({
     width: 200,
     borderBottomWidth: 1,
     borderColor: palette.gray,
-    textAlign: "right"
+    textAlign: "right",
   },
 
   inputDark: {
     color: "white",
     borderColor: "white",
   },
-
 
   addWrap: {
     flex: 1,
@@ -103,16 +102,16 @@ export default StyleSheet.create({
 
   modalDark: { backgroundColor: palette.darkGray },
 
-  balanceInput: { 
-    fontSize: 16, 
-    borderBottomWidth: 1, 
-    width: 50, 
+  balanceInput: {
+    fontSize: 16,
+    borderBottomWidth: 1,
+    width: 50,
     borderColor: palette.gray,
-    textAlign: "right"
+    textAlign: "right",
   },
 
   balanceInputDark: {
     borderColor: palette.light,
-    color: palette.light
-  }
+    color: palette.light,
+  },
 })

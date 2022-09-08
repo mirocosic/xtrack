@@ -3,22 +3,27 @@ import { makeUUID } from "../../utils/helper-gnomes"
 
 const labels = (state = initialState, action) => {
   switch (action.type) {
-
     case "ADD_LABEL":
       return {
         ...state,
         items: [
           ...state.items,
-          { id: makeUUID(), name: action.label.name, color: action.label.color },
+          {
+            id: makeUUID(),
+            name: action.label.name,
+            color: action.label.color,
+          },
         ],
       }
 
     case "EDIT_LABEL":
       return {
         ...state,
-        items: state.items.map((item) => {
-          if (item.id !== action.label.id) return item;
-          return action.label;
+        items: state.items.map(item => {
+          if (item.id !== action.label.id) {
+            return item
+          }
+          return action.label
         }),
       }
 
@@ -37,16 +42,15 @@ const labels = (state = initialState, action) => {
     case "APPLY_LABEL_FILTER":
       return {
         ...state,
-        appliedLabelsFilter: [
-          ...state.appliedLabelsFilter,
-          action.label,
-        ],
+        appliedLabelsFilter: [...state.appliedLabelsFilter, action.label],
       }
 
     case "REMOVE_LABEL_FILTER":
       return {
         ...state,
-        appliedLabelsFilter: state.appliedLabelsFilter.filter(label => label.id !== action.label.id),
+        appliedLabelsFilter: state.appliedLabelsFilter.filter(
+          label => label.id !== action.label.id,
+        ),
       }
 
     case "RESET_FILTERS":
@@ -62,9 +66,8 @@ const labels = (state = initialState, action) => {
       return action.data.labels
 
     default:
-      return state;
+      return state
   }
-
 }
 
-export default labels;
+export default labels

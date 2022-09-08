@@ -4,14 +4,13 @@ const OS_ANDROID = "android"
 const OS_IOS = "ios"
 
 function is(osName) {
-  return osName === Platform.OS;
+  return osName === Platform.OS
 }
 
 const isAndroid = is(OS_ANDROID)
 const isIos = is(OS_IOS)
 
 function pickComponent(osComponents) {
-
   const Component = osComponents[Platform.OS]
 
   if (!Component) {
@@ -22,16 +21,11 @@ function pickComponent(osComponents) {
 }
 
 function getExtension(path) {
-  if (!path) throw new Error("getExtension: expected a String")
+  if (!path) {
+    throw new Error("getExtension: expected a String")
+  }
   const [extension] = path.toLowerCase().split(".")
   return extension
 }
 
-export {
-  OS_ANDROID,
-  OS_IOS,
-  isAndroid,
-  isIos,
-  pickComponent,
-  getExtension,
-};
+export { OS_ANDROID, OS_IOS, isAndroid, isIos, pickComponent, getExtension }

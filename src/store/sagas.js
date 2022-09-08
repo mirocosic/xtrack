@@ -3,8 +3,5 @@ import transactions from "./transactions/saga"
 import common from "./common/saga"
 
 export default function* rootSaga() {
-  yield all([
-    common(),
-    transactions(),
-  ])
+  yield all([common(), transactions()])
 }

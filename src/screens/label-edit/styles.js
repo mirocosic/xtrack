@@ -3,7 +3,6 @@ import globalStyles from "../../utils/styles"
 import palette from "../../utils/palette"
 
 export default StyleSheet.create({
-
   ...globalStyles,
 
   colorPicker: {
@@ -59,10 +58,9 @@ export default StyleSheet.create({
     borderColor: "white",
   },
 
-  
   addWrap: {
     flex: 1,
-    marginLeft: 10, 
+    marginLeft: 10,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

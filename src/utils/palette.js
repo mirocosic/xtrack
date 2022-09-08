@@ -1,7 +1,6 @@
 const grey = "#8a8e91"
-const darkGrey = "rgb(45, 45, 45)";
-const lightGrey = "#a1a5a8";
-
+const darkGrey = "rgb(45, 45, 45)"
+const lightGrey = "#a1a5a8"
 
 export default {
   babyBlue: "#89cff0",
