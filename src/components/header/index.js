@@ -7,7 +7,6 @@ import { truncate } from "lodash"
 
 import { Title } from "../typography"
 import Icon from "../icon"
-import __ from "../../utils/translations"
 import styles from "./styles"
 import { useDarkTheme } from "../../utils/ui-utils"
 
@@ -16,10 +15,10 @@ export default ({ withInsets, backBtn, backBtnPress, actionBtn, actionBtnPress, 
   const insets = useSafeAreaInsets()
 
   return (
-    <View style={[styles.container, style, useDarkTheme() && styles.containerDark, withInsets ? {paddingTop: 10 + insets.top} : {paddingTop: 10}]}>
+    <View style={[styles.container, style, useDarkTheme() && styles.containerDark, withInsets ? { paddingTop: 10 + insets.top } : { paddingTop: 10 }]}>
       {backBtn && (
         <BorderlessButton
-          style={[styles.backBtn, withInsets ? {top: 8 + insets.top} : {top: 8}]}
+          style={[styles.backBtn, withInsets ? { top: 8 + insets.top } : { top: 8 }]}
           onPress={() => {
             backBtnPress ? backBtnPress() : navigation.goBack()
           }}>
@@ -32,7 +31,7 @@ export default ({ withInsets, backBtn, backBtnPress, actionBtn, actionBtnPress, 
       </View>
 
       {actionBtn && (
-        <TouchableOpacity style={[styles.actionBtnWrap, withInsets ? {top: 8 + insets.top} : {top: 8}]} onPress={actionBtnPress}>
+        <TouchableOpacity style={[styles.actionBtnWrap, withInsets ? { top: 8 + insets.top } : { top: 8 }]} onPress={actionBtnPress}>
           {actionBtn}
         </TouchableOpacity>
       )}

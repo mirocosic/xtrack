@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react"
-import { View, Text, ScrollView, Dimensions, Animated, StyleSheet, TouchableOpacity } from "react-native"
+import { View, Text, ScrollView, Dimensions, Animated, StyleSheet } from "react-native"
 import LottieView from "lottie-react-native"
 import { RectButton } from "react-native-gesture-handler"
 import SplashScreen from "react-native-splash-screen"

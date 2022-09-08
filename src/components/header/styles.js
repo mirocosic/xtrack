@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native"
-import { safePaddingTop } from "../../utils/ui-utils"
 import palette from "../../utils/palette"
 
 export default StyleSheet.create({

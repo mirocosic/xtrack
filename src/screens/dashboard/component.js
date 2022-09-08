@@ -67,7 +67,7 @@ class Dashboard extends Component {
   scrollRef = React.createRef()
 
   componentDidMount() {
-    const { route, navigation, openOnForm } = this.props
+    const { navigation, openOnForm } = this.props
     const { width } = Dimensions.get("window")
     setTimeout(() => this.scrollView.scrollTo({ x: width * 23, y: 0, animated: false }), 100)
     setTimeout(() => openOnForm && navigation.navigate("TransactionForm", { clearForm: true }), 0)
@@ -268,11 +268,6 @@ class Dashboard extends Component {
             const transX = this.state.scrollX.interpolate({
               inputRange: [(idx - 1) * width, idx * width, width * (idx + 1)],
               outputRange: [200, 0, -200],
-            })
-
-            const bg = this.state.scrollX.interpolate({
-              inputRange: [(idx - 1) * width, idx * width, width * (idx + 1)],
-              outputRange: ["rgb(7, 16,145)", "rgb(13,61,251)", "rgb(7, 16,145)"],
             })
 
             return (

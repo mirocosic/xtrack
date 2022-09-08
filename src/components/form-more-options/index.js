@@ -20,14 +20,14 @@ export default props => {
     <View>
       <View style={[styles.formFieldWrap, { alignItems: "center" }]}>
         <Copy>Recurring</Copy>
-        <Switch value={!!transaction.recurring} onValueChange={toggleRecuring} />
+        <Switch value={!!transaction?.recurring} onValueChange={toggleRecuring} />
       </View>
 
-      <Collapsible collapsed={!!transaction.recurring === false} style={{ padding: 20, paddingTop: 10 }}>
+      <Collapsible collapsed={!!transaction?.recurring === false} style={{ padding: 20, paddingTop: 10 }}>
         <View style={styles.inlineBetween}>
           <Copy>Every</Copy>
           <TouchableOpacity onPress={selectSchedule}>
-            <Copy>{(transaction.recurring && transaction.recurring.frequency) || "Month"}</Copy>
+            <Copy>{(transaction?.recurring && transaction?.recurring.frequency) || "Month"}</Copy>
           </TouchableOpacity>
         </View>
 
@@ -35,7 +35,7 @@ export default props => {
           <Copy>End Date</Copy>
           <TouchableOpacity style={{ flexDirection: "row", alignItems: "center" }} onPress={() => recurringCalendarModalRef.current.open()}>
             <Icon type="calendar-alt" textStyle={{ color: "teal" }} style={{ marginLeft: 0 }} />
-            <Copy style={{ margin: 0 }}>{transaction.recurring && moment(transaction.recurring.endTimestamp).format("MMM Do YYYY")}</Copy>
+            <Copy style={{ margin: 0 }}>{transaction?.recurring && moment(transaction?.recurring.endTimestamp).format("MMM Do YYYY")}</Copy>
           </TouchableOpacity>
         </View>
       </Collapsible>

@@ -1,4 +1,4 @@
-import { get, map } from "lodash"
+import { get } from "lodash"
 import { store } from "../store"
 
 const translations = {
@@ -6,8 +6,7 @@ const translations = {
 
   hrv: {
     Language: "Jezik",
-    "Please choose your preferred language":
-      "Odaberi svoj preferirani jezik aplikacije",
+    "Please choose your preferred language": "Odaberi svoj preferirani jezik aplikacije",
     "Welcome to XTrack!": "Dobrodošli u XTrack!",
     "Go to app": "Kreni",
     Dashboard: "Kontrola",
@@ -92,30 +91,22 @@ const translations = {
 
     "Become a master of your finances": "Postani majstor svojih financija",
     "Secure your financial future": "Osiguraj svoju financijsku budućnost",
-    "Track all your expenses in one place":
-      "Prati sve troškove na jednom mjestu",
+    "Track all your expenses in one place": "Prati sve troškove na jednom mjestu",
     "Let's go!": "Kreni!",
 
-    "Customize categories to group your transactions":
-      "Prilagodi kategorije za lakše grupiranje transakcija",
-    "Create separate accounts for your transactions":
-      "Kreiraj odvojene račune za svoje transakcije",
-    "Tag your transactions with labels for easy tracking":
-      "Označi svoje transakcije za lakši pregled",
-    "Make a local backup of your data and restore it if you delete the app":
-      "Napravi lokalnu kopiju podataka i vrati podatke u slučaju brisanja aplikacije",
+    "Customize categories to group your transactions": "Prilagodi kategorije za lakše grupiranje transakcija",
+    "Create separate accounts for your transactions": "Kreiraj odvojene račune za svoje transakcije",
+    "Tag your transactions with labels for easy tracking": "Označi svoje transakcije za lakši pregled",
+    "Make a local backup of your data and restore it if you delete the app": "Napravi lokalnu kopiju podataka i vrati podatke u slučaju brisanja aplikacije",
     "Check out the onboarding carousel!": "Pogledaj uvodni opis aplikacije",
-    "Generate Demo Dummy Transactions (x100)":
-      "Generiraj Demo transakcije (x100)",
+    "Generate Demo Dummy Transactions (x100)": "Generiraj Demo transakcije (x100)",
 
     "Create Backup": "Kreiraj kopiju",
     "Restore backup": "Vrati kopiju",
     "Are you sure?": "Sigurno?",
     Delete: "Obriši",
-    "Do you want to restore this backup? Make sure you have the current state backed up or it will be lost.":
-      "Da li želiš vratiti ovu kopiju? Budi siguran da imaš kopiju trenutnog stanja.",
-    "Do you want to delete this backup? This action cannot be undone.":
-      "Da li želiš obrisati ovu kopiju?",
+    "Do you want to restore this backup? Make sure you have the current state backed up or it will be lost.": "Da li želiš vratiti ovu kopiju? Budi siguran da imaš kopiju trenutnog stanja.",
+    "Do you want to delete this backup? This action cannot be undone.": "Da li želiš obrisati ovu kopiju?",
   },
 }
 

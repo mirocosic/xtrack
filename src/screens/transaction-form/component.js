@@ -266,7 +266,7 @@ class TransactionForm extends Component {
                 onSubmitEditing={() => this.submitForm()}
                 onChangeText={value => changeTransactionAmount(value)}
                 onBlur={() => Keyboard.dismiss()}
-                value={transaction?.amount?.toString()}
+                value={transaction.amount?.toString()}
                 style={{ width: 0, height: 0, fontSize: 0, display: "none" }}
                 keyboardAppearance={darkMode ? "dark" : "light"}
                 keyboardType="numeric"

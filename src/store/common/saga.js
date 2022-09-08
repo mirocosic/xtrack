@@ -5,8 +5,6 @@ function* initApp() {
   console.log("app started...")
 }
 
-function* setLanguage() {}
-
 export default function* commonSaga() {
   yield all([initApp()])
 }

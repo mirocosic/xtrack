@@ -53,7 +53,7 @@ const renderAccounts = (accounts, transaction) => {
       {fromAccount && (
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "flex-start" }}>
           <Icon type={get(fromAccount, "icon", "")} textStyle={{ color: get(fromAccount, "color", "blue") }} style={{ width: 20, height: 25, margin: 2 }} />
-          <Copy>{fromAccount && truncate(fromAccount.name, { length: 150 })}</Copy>
+          <Copy>{truncate(fromAccount.name, { length: 150 })}</Copy>
           <Copy>{" => "}</Copy>
         </View>
       )}
@@ -66,10 +66,6 @@ const renderAccounts = (accounts, transaction) => {
 
 const Transaction = ({ transaction, selectTransaction, deleteTransaction, navigation, categories, handlePress, accounts }) => {
   renderRightActions = dragX => {
-    const trans = dragX.interpolate({
-      inputRange: [0, 50, 100, 101],
-      outputRange: [-20, 0, 0, 1],
-    })
     return (
       <RectButton
         style={{ backgroundColor: "red", alignItems: "center", padding: 10, justifyContent: "center" }}

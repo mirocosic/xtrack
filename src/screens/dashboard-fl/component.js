@@ -60,7 +60,6 @@ export default props => {
   const darkMode = useDarkTheme()
   const flatListRef = useRef()
   const breakdownModal = useRef()
-  const scrollX = new Animated.Value(0)
   const [showExpensesChart, setShowExpensesChart] = useState(true)
   const insets = useSafeAreaInsets()
 
@@ -161,7 +160,6 @@ export default props => {
     const currentMonthExpenses = filterTransactions("expense").sort(compare)
     const currentMonthTransfers = filterTransactions("transfer").sort(compare)
 
-    const currentItemIndex = items.findIndex(i => i.id === item.id)
     const currentMonthIndex = items.findIndex(item => item.id === 0)
 
     return (

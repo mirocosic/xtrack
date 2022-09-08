@@ -1,5 +1,5 @@
 import React from "react"
-import { View, ScrollView, useColorScheme, TouchableOpacity } from "react-native"
+import { View, ScrollView, TouchableOpacity } from "react-native"
 import Swipeable from "react-native-gesture-handler/Swipeable"
 import { RectButton } from "react-native-gesture-handler"
 import LinearGradient from "react-native-linear-gradient"
@@ -28,16 +28,11 @@ const Labels = ({ deleteLabel, navigation, labels }) => {
   return (
     <Screen>
       <Header title="Tags" backBtn withInsets />
-      <ScrollView contentContainerStyle={{paddingBottom: insets.bottom + 50}}>
+      <ScrollView contentContainerStyle={{ paddingBottom: insets.bottom + 50 }}>
         <View>
           {labels.map(label => (
             <Swipeable key={label.id} renderRightActions={() => renderDeleteButton(label, deleteLabel)} containerStyle={styles.swiperWrap}>
-              <RectButton 
-                key={label.id} 
-                style={[styles.wrap, darkMode && styles.wrapDark]}
-                activeOpacity={darkMode ? 0.5 : 0.1}
-                rippleColor={darkMode ? palette.darkGray : palette.lightBlue}
-                onPress={() => navigation.navigate("LabelEdit", { label })}>
+              <RectButton key={label.id} style={[styles.wrap, darkMode && styles.wrapDark]} activeOpacity={darkMode ? 0.5 : 0.1} rippleColor={darkMode ? palette.darkGray : palette.lightBlue} onPress={() => navigation.navigate("LabelEdit", { label })}>
                 <View key={label.id} style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <View style={{ width: 30, height: 30, backgroundColor: label.color, marginRight: 10, borderRadius: 50 }} />

@@ -4,16 +4,11 @@ import { makeUUID } from "../../utils/helper-gnomes"
 const categories = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_ACCOUNT": {
-      const { name, icon, color, defaultAccount, startingBalance, currency } =
-        action.account
+      const { name, icon, color, startingBalance, currency } = action.account
       return {
         ...state,
         items: [
-          ...state.items.map(item =>
-            action.account.defaultAccount
-              ? { ...item, defaultAccount: false }
-              : item,
-          ),
+          ...state.items.map(item => (action.account.defaultAccount ? { ...item, defaultAccount: false } : item)),
           {
             id: makeUUID(),
             name,
@@ -21,8 +16,7 @@ const categories = (state = initialState, action) => {
             color,
             startingBalance,
             currency,
-            defaultAccount:
-              action.account.defaultAccount || state.items.length === 0,
+            defaultAccount: action.account.defaultAccount || state.items.length === 0,
           },
         ],
       }

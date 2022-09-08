@@ -3,7 +3,6 @@ import { Animated, Easing, View, TouchableOpacity } from "react-native"
 import { FlingGestureHandler, Directions, State } from "react-native-gesture-handler"
 import ReactNativeHapticFeedback from "react-native-haptic-feedback"
 import { Copy } from "../typography"
-import __ from "../../utils/translations"
 import styles from "./styles"
 
 const offsets = { expense: 0, income: 120, transfer: 240 }

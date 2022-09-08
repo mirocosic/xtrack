@@ -1,6 +1,6 @@
 import React from "react"
 import { View, TouchableOpacity } from "react-native"
-import { RectButton, BorderlessButton } from "react-native-gesture-handler"
+import { RectButton } from "react-native-gesture-handler"
 import { Copy } from "../typography"
 import palette from "../../utils/palette"
 import styles from "./styles"
@@ -9,9 +9,7 @@ export const PrimaryButton = props => {
   const { label, onPress, style } = props
 
   return (
-    <RectButton
-      onPress={onPress}
-      style={[{ backgroundColor: palette.blue, ...styles.wrap }, style]}>
+    <RectButton onPress={onPress} style={[{ backgroundColor: palette.blue, ...styles.wrap }, style]}>
       <View>
         <Copy style={styles.label}>{label}</Copy>
       </View>
