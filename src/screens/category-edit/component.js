@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import { Alert, Appearance, ScrollView, View, TextInput, TouchableOpacity } from "react-native"
-import { Modalize } from "react-native-modalize"
 import { get } from "lodash"
 import LinearGradient from "react-native-linear-gradient"
 import { withSafeAreaInsets } from "react-native-safe-area-context"
+import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet"
 
 import { Screen, Header } from "../../components"
 import CategoryIcons from "../../components/category-icons"
@@ -97,14 +97,14 @@ class CategoryEdit extends Component {
 
             <View style={[styles.inlineBetween, { margin: 10 }]}>
               <Copy>Icon</Copy>
-              <TouchableOpacity onPress={() => this.iconsModal.current.open()}>
+              <TouchableOpacity onPress={() => this.iconsModal.current.expand()}>
                 <Icon type={category.icon} textStyle={{ color: category.color, fontSize: 30 }} />
               </TouchableOpacity>
             </View>
 
             <View style={[styles.inlineBetween, { margin: 10 }]}>
               <Copy>Color</Copy>
-              <TouchableOpacity onPress={() => this.colorModal.current.open()}>
+              <TouchableOpacity onPress={() => this.colorModal.current.expand()}>
                 <View
                   style={{
                     width: 35,
@@ -209,7 +209,35 @@ class CategoryEdit extends Component {
           </View>
         </ScrollView>
 
-        <Modalize adjustToContentHeight modalStyle={[styles.modal, darkMode && styles.modalDark]} ref={this.colorModal}>
+        <BottomSheet
+          ref={this.iconsModal}
+          index={-1}
+          snapPoints={["40%"]}
+          onChange={() => {}}
+          enablePanDownToClose
+          backdropComponent={props => <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} pressBehavior="close" />}
+          backgroundStyle={{ backgroundColor: darkMode ? palette.darkGray : palette.light }}
+          handleIndicatorStyle={{ backgroundColor: darkMode ? palette.light : palette.dark }}>
+          <View style={{ padding: 20 }}>
+            <CategoryIcons
+              selected={category.icon || "car"}
+              select={value => {
+                this.setState({ category: { ...category, icon: value } })
+                this.iconsModal.current.close()
+              }}
+            />
+          </View>
+        </BottomSheet>
+
+        <BottomSheet
+          ref={this.colorModal}
+          index={-1}
+          snapPoints={["30%"]}
+          onChange={() => {}}
+          enablePanDownToClose
+          backdropComponent={props => <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} pressBehavior="close" />}
+          backgroundStyle={{ backgroundColor: darkMode ? palette.darkGray : palette.light }}
+          handleIndicatorStyle={{ backgroundColor: darkMode ? palette.light : palette.dark }}>
           <View style={styles.colorPicker}>
             {colors.map(color => (
               <TouchableOpacity
@@ -222,19 +250,7 @@ class CategoryEdit extends Component {
               />
             ))}
           </View>
-        </Modalize>
-
-        <Modalize adjustToContentHeight modalStyle={[styles.modal, darkMode && styles.modalDark]} ref={this.iconsModal}>
-          <View style={{ padding: 20 }}>
-            <CategoryIcons
-              selected={category.icon || "car"}
-              select={value => {
-                this.setState({ category: { ...category, icon: value } })
-                this.iconsModal.current.close()
-              }}
-            />
-          </View>
-        </Modalize>
+        </BottomSheet>
       </Screen>
     )
   }
