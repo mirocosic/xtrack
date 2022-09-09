@@ -1,9 +1,10 @@
-import { connect } from "react-redux";
-import Component from "./component";
+import { connect } from "react-redux"
+import Component from "./component"
 
 export default connect(
   state => ({
     darkMode: state.common.darkMode,
+    baseCurrency: state.common.currency,
     accounts: state.accounts.items,
     accountFilter: state.accounts.accountFilter,
     transactions: state.transactions.entries,
@@ -13,4 +14,4 @@ export default connect(
   }),
 
   dispatch => ({ changeAccountFilter: account => dispatch({ type: "CHANGE_ACCOUNT_FILTER", account }) }),
-)(Component);
+)(Component)

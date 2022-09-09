@@ -2,11 +2,11 @@ import { connect } from "react-redux"
 import { get } from "lodash"
 import moment from "moment"
 
-import Component from "./component";
+import Component from "./component"
 
 const sortByCategory = (categories, expenses) => {
   const result = {}
-  expenses.forEach((expense) => {
+  expenses.forEach(expense => {
     const category = categories.filter(cat => cat.id === expense.categoryId)
     const currExpenseSum = result[category.name] || 0
     result[category.name] = currExpenseSum + expense.amount
@@ -15,19 +15,15 @@ const sortByCategory = (categories, expenses) => {
   return result
 }
 
-export const filterByAccount = (expenses, accountFilter) => (
-  accountFilter ? expenses.filter(item => accountFilter.id === get(item, "accountId")) : expenses
-)
+export const filterByAccount = (expenses, accountFilter) => (accountFilter ? expenses.filter(item => accountFilter.id === get(item, "accountId")) : expenses)
 
-export const filterByMonth = (transactions, currentMonth) => (
-  transactions.filter(t => moment(t.timestamp) > moment(currentMonth).startOf("month")
-                           && moment(t.timestamp) < moment(currentMonth).endOf("month")
-                           && t.type === "expense"))
+export const filterByMonth = (transactions, currentMonth) => transactions.filter(t => moment(t.timestamp) > moment(currentMonth).startOf("month") && moment(t.timestamp) < moment(currentMonth).endOf("month") && t.type === "expense")
 
 export default connect(
   state => ({
     darkMode: state.common.darkMode,
     theme: state.common.theme,
+    baseCurrency: state.common.currency,
     accounts: state.accounts.items,
     accountFilter: state.accounts.accountFilter,
     monthFilter: state.transactions.monthFilter,
@@ -36,14 +32,13 @@ export default connect(
     categories: state.categories.items,
     total: state.transactions.total,
     expenses: state.transactions.expenses,
-    expensesByCategory:
-      sortByCategory(
-        state.categories.items,
-        filterByMonth(
-          state.transactions.entries.filter(item => item.type === "expense"),
-          state.transactions.currentMonth,
-        ),
+    expensesByCategory: sortByCategory(
+      state.categories.items,
+      filterByMonth(
+        state.transactions.entries.filter(item => item.type === "expense"),
+        state.transactions.currentMonth,
       ),
+    ),
     income: state.transactions.income,
   }),
 
@@ -53,4 +48,4 @@ export default connect(
     clearTransactionForm: () => dispatch({ type: "CLEAR_TRANSACTION_FORM" }),
     clearSelectedCategory: () => dispatch({ type: "CLEAR_SELECTED_CATEGORY" }),
   }),
-)(Component);
+)(Component)

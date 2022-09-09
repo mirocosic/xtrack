@@ -6,6 +6,7 @@ export default connect(
     darkMode: state.common.darkMode,
     theme: state.common.theme,
     openOnForm: state.common.openOnForm,
+    baseCurrency: state.common.currency,
     accounts: state.accounts.items,
     accountFilter: state.accounts.accountFilter,
     categories: state.categories.items,
@@ -21,4 +22,4 @@ export default connect(
     clearTransactionForm: () => dispatch({ type: "CLEAR_TRANSACTION_FORM" }),
     clearSelectedCategory: () => dispatch({ type: "CLEAR_SELECTED_CATEGORY" }),
   }),
-)(Component);
+)(Component)

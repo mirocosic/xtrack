@@ -64,7 +64,7 @@ const renderAccounts = (accounts, transaction) => {
   )
 }
 
-const Transaction = ({ transaction, selectTransaction, deleteTransaction, navigation, categories, handlePress, accounts }) => {
+const Transaction = ({ transaction, selectTransaction, deleteTransaction, navigation, categories, handlePress, accounts, baseCurrency }) => {
   renderRightActions = dragX => {
     return (
       <RectButton
@@ -91,7 +91,7 @@ const Transaction = ({ transaction, selectTransaction, deleteTransaction, naviga
         }}>
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", flex: 1 }}>
           {renderCategory(categories, transaction.categoryId)}
-          <Text style={[styles.amount, getAmountColor(transaction.type)]}>{formatCurrency(transaction.amount, transaction.currency)}</Text>
+          <Text style={[styles.amount, getAmountColor(transaction.type)]}>{formatCurrency(transaction.amount, baseCurrency)}</Text>
         </View>
 
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", flex: 1 }}>{renderAccounts(accounts, transaction)}</View>

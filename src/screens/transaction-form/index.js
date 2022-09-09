@@ -1,10 +1,11 @@
-import { connect } from "react-redux";
-import Component from "./component";
+import { connect } from "react-redux"
+import Component from "./component"
 
 export default connect(
   state => ({
     darkMode: state.common.darkMode,
     theme: state.common.theme,
+    baseCurrency: state.common.currency,
     transactions: state.transactions.entries,
     transferMode: state.transactions.transferMode,
     selectedTransaction: state.transactions.selectedTransaction,
@@ -31,4 +32,4 @@ export default connect(
     changeAccountFilter: account => dispatch({ type: "CHANGE_ACCOUNT_FILTER", account }),
     clearTransactionForm: (defaultAccount, defaultCategory) => dispatch({ type: "CLEAR_TRANSACTION_FORM", defaultAccount, defaultCategory }),
   }),
-)(Component);
+)(Component)

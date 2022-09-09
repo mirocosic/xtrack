@@ -16,6 +16,8 @@ import palette from "../../utils/palette"
 import { calcAmount } from "../../utils/helper-gnomes"
 import styles from "./styles"
 
+//// DEPRECATED
+
 const compare = (a, b) => {
   if (a.categoryId < b.categoryId) {
     return -1
@@ -206,7 +208,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { transactions, navigation, theme } = this.props
+    const { transactions, navigation, theme, baseCurrency } = this.props
     const { width } = Dimensions.get("window")
     const currentMonth = moment()
     currentMonth.subtract(24, "month")
@@ -310,7 +312,7 @@ class Dashboard extends Component {
                     this.breakdownModal.current.open()
                   }}>
                   <Copy style={{ fontSize: 18 }}>Income: </Copy>
-                  <Copy style={{ fontSize: 18, color: palette.green }}>{formatCurrency(income)}</Copy>
+                  <Copy style={{ fontSize: 18, color: palette.green }}>{formatCurrency(income, baseCurrency)}</Copy>
                 </TouchableOpacity>
 
                 {this.renderExpenses(sortedIncome, currentMonthIncome)}

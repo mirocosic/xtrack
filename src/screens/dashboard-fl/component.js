@@ -56,7 +56,7 @@ export default props => {
   const [breakdownTransactions, setBreakdownTransactions] = useState([])
   const WIDTH = Dimensions.get("window").width
   const currentMonth = moment()
-  const { transactions, openOnForm, navigation } = props
+  const { transactions, openOnForm, navigation, baseCurrency } = props
   const darkMode = useDarkTheme()
   const flatListRef = useRef()
   const breakdownModal = useRef()
@@ -115,7 +115,7 @@ export default props => {
       })
   }
 
-  renderExpenses = (expenses, currentMonthTransactions, modal) =>
+  renderExpenses = (expenses, currentMonthTransactions) =>
     Object.entries(expenses)
       .sort((a, b) => b[1] - a[1])
       .map(item => {
@@ -135,7 +135,7 @@ export default props => {
                 {`${item[0]} `} {renderBudget(item[1], cat.budget)}{" "}
               </Copy>
             </View>
-            <Copy style={{ fontSize: 14 }}>{` ${formatCurrency(item[1])} `}</Copy>
+            <Copy style={{ fontSize: 14 }}>{` ${formatCurrency(item[1], baseCurrency)} `}</Copy>
           </TouchableOpacity>
         )
       })
@@ -198,7 +198,7 @@ export default props => {
             breakdownModal.current.open()
           }}>
           <Copy style={{ fontSize: 18 }}>Income: </Copy>
-          <Copy style={{ fontSize: 18, color: palette.green }}>{formatCurrency(income)}</Copy>
+          <Copy style={{ fontSize: 18, color: palette.green }}>{formatCurrency(income, baseCurrency)}</Copy>
         </TouchableOpacity>
 
         {renderExpenses(sortedIncome, currentMonthIncome)}
@@ -210,7 +210,7 @@ export default props => {
             breakdownModal.current.open()
           }}>
           <Copy style={{ fontSize: 18 }}>Expenses: </Copy>
-          <Copy style={{ fontSize: 18, color: palette.red }}>{formatCurrency(expenses)}</Copy>
+          <Copy style={{ fontSize: 18, color: palette.red }}>{formatCurrency(expenses, baseCurrency)}</Copy>
         </TouchableOpacity>
 
         {renderExpenses(sortedExpenses, currentMonthExpenses)}
@@ -223,7 +223,7 @@ export default props => {
               breakdownModal.current.open()
             }}>
             <Copy style={{ fontSize: 18 }}>Transfers: </Copy>
-            <Copy style={{ fontSize: 18 }}>{formatCurrency(transfers)}</Copy>
+            <Copy style={{ fontSize: 18 }}>{formatCurrency(transfers, baseCurrency)}</Copy>
           </TouchableOpacity>
         )}
 
@@ -231,7 +231,7 @@ export default props => {
 
         <View style={[styles.inlineBetween, { marginTop: 30, paddingTop: 10, borderTopWidth: 1 }]}>
           <Copy style={{ fontSize: 18 }}>Balance: </Copy>
-          <Copy style={{ fontSize: 18, color: palette.blue }}>{formatCurrency(income - expenses)}</Copy>
+          <Copy style={{ fontSize: 18, color: palette.blue }}>{formatCurrency(income - expenses, baseCurrency)}</Copy>
         </View>
 
         <View style={[styles.inlineBetween, styles.alignCenter]}>

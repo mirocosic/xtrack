@@ -239,7 +239,7 @@ class TransactionForm extends Component {
 
   render() {
     const { transaction, moreOptionsOpen, accountType } = this.state
-    const { navigation, changeTransactionAmount, theme, accounts, labels } = this.props
+    const { navigation, changeTransactionAmount, theme, accounts, labels, baseCurrency } = this.props
     const isTransfer = transaction.type === "transfer"
     const darkMode = theme === "system" ? Appearance.getColorScheme() === "dark" : theme === "dark"
 
@@ -256,7 +256,7 @@ class TransactionForm extends Component {
               <Copy style={{ color: "teal", borderRadius: 20, zIndex: 100, fontSize: 30 }}>
                 {transaction.type === "expense" && "-"}
                 {transaction.type === "income" && "+"}
-                {formatCurrency(transaction.amount, transaction.currency)}
+                {formatCurrency(transaction.amount, baseCurrency)}
               </Copy>
 
               <TextInput

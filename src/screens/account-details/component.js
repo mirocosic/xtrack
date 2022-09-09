@@ -19,13 +19,13 @@ export default ({
   route: {
     params: { accountId },
   },
+  baseCurrency,
 }) => {
   const account = accounts.find(acc => acc.id === accountId)
   const [showExpensesChart, setShowExpensesChart] = useState(false)
   const darkMode = useDarkTheme()
 
-  const sum = transactions =>
-    transactions.reduce((acc, transaction) => acc + calcAmount(transaction), 0)
+  const sum = transactions => transactions.reduce((acc, transaction) => acc + calcAmount(transaction), 0)
 
   const sortByCategory = expenses => {
     const result = {}
@@ -51,101 +51,45 @@ export default ({
                 flex: 1,
                 paddingRight: 15,
               }}>
-              <Icon
-                type={get(cat, "icon", "")}
-                textStyle={{ color: cat.color || "blue", fontSize: 12 }}
-                style={{ marginRight: 5, width: 20, height: 20 }}
-              />
+              <Icon type={get(cat, "icon", "")} textStyle={{ color: cat.color || "blue", fontSize: 12 }} style={{ marginRight: 5, width: 20, height: 20 }} />
               <Copy style={{ fontSize: 14 }}>{`${item[0]} `} </Copy>
             </View>
-            <Copy style={{ fontSize: 14 }}>{` ${formatCurrency(
-              item[1],
-            )} `}</Copy>
+            <Copy style={{ fontSize: 14 }}>{` ${formatCurrency(item[1], baseCurrency)} `}</Copy>
           </View>
         )
       })
 
-  const sortedIncome = sortByCategory(
-    transactions
-      .filter(t => t.type === "income" && !t.isTransfer)
-      .filter(t => t.accountId === account.id),
-  )
-  const sortedExpenses = sortByCategory(
-    transactions
-      .filter(t => t.type === "expense" && !t.isTransfer)
-      .filter(t => t.accountId === account.id),
-  )
-  const sortedTransfers = sortByCategory(
-    transactions
-      .filter(t => t.type === "transfer" && !t.isTransfer)
-      .filter(
-        t => t.accountId === account.id || t.fromAccountId === account.id,
-      ),
-  )
+  const sortedIncome = sortByCategory(transactions.filter(t => t.type === "income" && !t.isTransfer).filter(t => t.accountId === account.id))
+  const sortedExpenses = sortByCategory(transactions.filter(t => t.type === "expense" && !t.isTransfer).filter(t => t.accountId === account.id))
+  const sortedTransfers = sortByCategory(transactions.filter(t => t.type === "transfer" && !t.isTransfer).filter(t => t.accountId === account.id || t.fromAccountId === account.id))
 
   return (
     <Screen>
-      <Header
-        icon={<Icon type={account.icon} textStyle={{ color: account.color }} />}
-        title={account.name}
-        backBtn={isAndroid}
-      />
+      <Header icon={<Icon type={account.icon} textStyle={{ color: account.color }} />} title={account.name} backBtn={isAndroid} />
 
       <ScrollView style={{ padding: 20 }}>
         <View style={[styles.inlineBetween, { marginBottom: 30 }]}>
           <Copy style={{ fontSize: 18 }}>Starting Balance: </Copy>
-          <Copy style={{ fontSize: 18 }}>
-            {formatCurrency(account.startingBalance)}
-          </Copy>
+          <Copy style={{ fontSize: 18 }}>{formatCurrency(account.startingBalance, baseCurrency)}</Copy>
         </View>
 
         <View style={[styles.inlineBetween, { marginBottom: 10 }]}>
           <Copy style={{ fontSize: 18 }}>Income: </Copy>
-          <Copy style={{ fontSize: 18, color: palette.green }}>
-            {formatCurrency(
-              sum(
-                transactions
-                  .filter(t => t.type === "income" && !t.isTransfer)
-                  .filter(t => t.accountId === account.id),
-              ),
-            )}
-          </Copy>
+          <Copy style={{ fontSize: 18, color: palette.green }}>{formatCurrency(sum(transactions.filter(t => t.type === "income" && !t.isTransfer).filter(t => t.accountId === account.id)), baseCurrency)}</Copy>
         </View>
 
         {renderExpenses(sortedIncome)}
 
-        <View
-          style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}>
+        <View style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}>
           <Copy style={{ fontSize: 18 }}>Expenses: </Copy>
-          <Copy style={{ fontSize: 18, color: palette.red }}>
-            {formatCurrency(
-              sum(
-                transactions
-                  .filter(t => t.type === "expense" && !t.isTransfer)
-                  .filter(t => t.accountId === account.id),
-              ),
-            )}
-          </Copy>
+          <Copy style={{ fontSize: 18, color: palette.red }}>{formatCurrency(sum(transactions.filter(t => t.type === "expense" && !t.isTransfer).filter(t => t.accountId === account.id)), baseCurrency)}</Copy>
         </View>
 
         {renderExpenses(sortedExpenses)}
 
-        <View
-          style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}>
+        <View style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}>
           <Copy style={{ fontSize: 18 }}>Transfers: </Copy>
-          <Copy style={{ fontSize: 18, color: palette.white }}>
-            {formatCurrency(
-              sum(
-                transactions
-                  .filter(t => t.type === "transfer" && !t.isTransfer)
-                  .filter(
-                    t =>
-                      t.accountId === account.id ||
-                      t.fromAccountId === account.id,
-                  ),
-              ),
-            )}
-          </Copy>
+          <Copy style={{ fontSize: 18, color: palette.white }}>{formatCurrency(sum(transactions.filter(t => t.type === "transfer" && !t.isTransfer).filter(t => t.accountId === account.id || t.fromAccountId === account.id)), baseCurrency)}</Copy>
         </View>
 
         {renderExpenses(sortedTransfers)}
@@ -153,37 +97,20 @@ export default ({
         <View style={{ paddingVertical: 20 }}>
           <View style={[styles.inline]}>
             {!isEmpty(sortedExpenses) && (
-              <RectButton
-                onPress={() => setShowExpensesChart(true)}
-                style={[
-                  styles.chartTab,
-                  showExpensesChart && styles.chartTabSelected,
-                ]}>
-                <Copy style={showExpensesChart && { color: "white" }}>
-                  Expenses
-                </Copy>
+              <RectButton onPress={() => setShowExpensesChart(true)} style={[styles.chartTab, showExpensesChart && styles.chartTabSelected]}>
+                <Copy style={showExpensesChart && { color: "white" }}>Expenses</Copy>
               </RectButton>
             )}
 
             {!isEmpty(sortedIncome) && (
-              <RectButton
-                onPress={() => setShowExpensesChart(false)}
-                style={[
-                  styles.chartTab,
-                  !showExpensesChart && styles.chartTabSelected,
-                  darkMode && styles.chartTabDark,
-                ]}>
-                <Copy style={!showExpensesChart && { color: "white" }}>
-                  Income
-                </Copy>
+              <RectButton onPress={() => setShowExpensesChart(false)} style={[styles.chartTab, !showExpensesChart && styles.chartTabSelected, darkMode && styles.chartTabDark]}>
+                <Copy style={!showExpensesChart && { color: "white" }}>Income</Copy>
               </RectButton>
             )}
           </View>
 
           <PieChart
-            data={prepDataForPieChart(
-              showExpensesChart ? sortedExpenses : sortedIncome,
-            )}
+            data={prepDataForPieChart(showExpensesChart ? sortedExpenses : sortedIncome)}
             width={Dimensions.get("window").width} // from react-native
             height={220}
             accessor="amount"
