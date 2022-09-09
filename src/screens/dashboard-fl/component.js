@@ -6,6 +6,7 @@ import { get, isEmpty } from "lodash"
 import moment from "moment"
 import { PieChart } from "react-native-chart-kit"
 import { RectButton } from "react-native-gesture-handler"
+import BottomSheet, { BottomSheetBackdrop, BottomSheetFlatList, useBottomSheetDynamicSnapPoints } from "@gorhom/bottom-sheet"
 
 import { Screen, Icon, Copy, Title, Transaction } from "../../components"
 import styles from "./styles"
@@ -15,7 +16,34 @@ import { formatCurrency } from "../../utils/currency"
 import { useDarkTheme } from "../../utils/ui-utils"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
-const initItems = [{ id: -23 }, { id: -22 }, { id: -21 }, { id: -20 }, { id: -19 }, { id: -18 }, { id: -17 }, { id: -16 }, { id: -15 }, { id: -14 }, { id: -13 }, { id: -12 }, { id: -11 }, { id: -10 }, { id: -9 }, { id: -8 }, { id: -7 }, { id: -6 }, { id: -5 }, { id: -4 }, { id: -3 }, { id: -2 }, { id: -1 }, { id: 0 }, { id: 1 }, { id: 2 }]
+const initItems = [
+  { id: -23 },
+  { id: -22 },
+  { id: -21 },
+  { id: -20 },
+  { id: -19 },
+  { id: -18 },
+  { id: -17 },
+  { id: -16 },
+  { id: -15 },
+  { id: -14 },
+  { id: -13 },
+  { id: -12 },
+  { id: -11 },
+  { id: -10 },
+  { id: -9 },
+  { id: -8 },
+  { id: -7 },
+  { id: -6 },
+  { id: -5 },
+  { id: -4 },
+  { id: -3 },
+  { id: -2 },
+  { id: -1 },
+  { id: 0 },
+  { id: 1 },
+  { id: 2 },
+]
 
 const compare = (a, b) => {
   if (a.categoryId < b.categoryId) {
@@ -127,7 +155,7 @@ export default props => {
             style={{ ...styles.row, paddingLeft: 10 }}
             onPress={() => {
               setBreakdownTransactions(filterByCategory(currentMonthTransactions, cat.id))
-              breakdownModal.current.open()
+              breakdownModal.current.snapToIndex(0)
             }}>
             <View style={{ flexDirection: "row", alignItems: "center", flex: 1, paddingRight: 15 }}>
               <Icon type={get(cat, "icon", "")} textStyle={{ color: cat.color || "blue", fontSize: 12 }} style={{ marginRight: 5, width: 20, height: 20 }} />
@@ -195,7 +223,7 @@ export default props => {
           style={[styles.inlineBetween, { marginBottom: 10 }]}
           onPress={() => {
             setBreakdownTransactions(currentMonthIncome)
-            breakdownModal.current.open()
+            breakdownModal.current.snapToIndex(0)
           }}>
           <Copy style={{ fontSize: 18 }}>Income: </Copy>
           <Copy style={{ fontSize: 18, color: palette.green }}>{formatCurrency(income, baseCurrency)}</Copy>
@@ -207,7 +235,7 @@ export default props => {
           style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}
           onPress={() => {
             setBreakdownTransactions(currentMonthExpenses)
-            breakdownModal.current.open()
+            breakdownModal.current.snapToIndex(0)
           }}>
           <Copy style={{ fontSize: 18 }}>Expenses: </Copy>
           <Copy style={{ fontSize: 18, color: palette.red }}>{formatCurrency(expenses, baseCurrency)}</Copy>
@@ -220,7 +248,7 @@ export default props => {
             style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}
             onPress={() => {
               setBreakdownTransactions(currentMonthTransfers)
-              breakdownModal.current.open()
+              breakdownModal.current.snapToIndex(0)
             }}>
             <Copy style={{ fontSize: 18 }}>Transfers: </Copy>
             <Copy style={{ fontSize: 18 }}>{formatCurrency(transfers, baseCurrency)}</Copy>
@@ -325,22 +353,28 @@ export default props => {
       />
 
       <Portal>
-        <Modalize
+        <BottomSheet
           ref={breakdownModal}
-          adjustToContentHeight
-          modalStyle={[styles.modal, styles.modalDark, darkMode && { backgroundColor: palette.dark }]}
-          modalTopOffset={100}
-          flatListProps={{
-            style: { paddingBottom: 20 },
-            contentContainerStyle: { paddingBottom: insets.bottom, overflow: "hidden", borderRadius: 10 },
-            showsVerticalScrollIndicator: false,
-            data: breakdownTransactions,
-            initialNumToRender: 20,
-            renderItem: ({ item }) => <Transaction key={item.id} transaction={item} navigation={props.navigation} handlePress={() => breakdownModal.current.close()} />,
-            keyExtractor: item => item.id,
-            ItemSeparatorComponent: () => <View style={styles.separator} />,
-          }}
-        />
+          index={-1}
+          snapPoints={["50%", "90%"]}
+          onChange={() => {}}
+          enablePanDownToClose
+          backdropComponent={props => <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} pressBehavior="close" />}
+          backgroundStyle={{ backgroundColor: darkMode ? palette.dark : palette.white }}
+          handleIndicatorStyle={{ backgroundColor: darkMode ? palette.light : palette.dark }}>
+          <BottomSheetFlatList
+            style={{ paddingBottom: 20 }}
+            contentContainerStyle={{ paddingBottom: insets.bottom, overflow: "hidden", borderRadius: 10 }}
+            showsVerticalScrollIndicator={false}
+            data={breakdownTransactions}
+            initialNumToRender={20}
+            renderItem={({ item }) => <Transaction key={item.id} transaction={item} navigation={props.navigation} handlePress={() => breakdownModal.current.close()} />}
+            keyExtractor={item => item.id}
+            ItemSeparatorComponent={() => <View style={styles.separator} />}
+          />
+        </BottomSheet>
+
+        {/* <Modalize ref={breakdownModal} adjustToContentHeight modalStyle={[styles.modal, styles.modalDark, darkMode && { backgroundColor: palette.dark }]} modalTopOffset={100} flatListProps={{}} /> */}
       </Portal>
     </Screen>
   )

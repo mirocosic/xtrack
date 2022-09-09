@@ -3,6 +3,7 @@ import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/
 import { createStackNavigator, TransitionPresets } from "@react-navigation/stack"
 import { createDrawerNavigator } from "@react-navigation/drawer"
 import { Host } from "react-native-portalize"
+import { GestureHandlerRootView } from "react-native-gesture-handler"
 
 import BottomBarNavigator from "./bottom-bar-navigator"
 import { TransactionForm, Dashboard, Settings, Categories, Accounts, Labels, CategoryEdit, Splash, Overview, AccountEdit, AccountDetails, LabelEdit, Backup, Onboarding } from "../screens"
@@ -54,18 +55,20 @@ const Main = () => (
 )
 
 export default () => (
-  <NavigationContainer theme={useDarkTheme() ? DarkTheme : DefaultTheme}>
-    <Drawer.Navigator
-      defaultStatus="closed"
-      screenOptions={{
-        drawerPosition: "right",
-        drawerType: "front",
-        headerShown: false,
-        gestureEnabled: true,
-        swipeEnabled: true,
-      }}
-      drawerContent={({ navigation }) => <DrawerContent navigation={navigation} />}>
-      <Drawer.Screen name="Main" component={Main} />
-    </Drawer.Navigator>
-  </NavigationContainer>
+  <GestureHandlerRootView style={{ flex: 1 }}>
+    <NavigationContainer theme={useDarkTheme() ? DarkTheme : DefaultTheme}>
+      <Drawer.Navigator
+        defaultStatus="closed"
+        screenOptions={{
+          drawerPosition: "right",
+          drawerType: "front",
+          headerShown: false,
+          gestureEnabled: true,
+          swipeEnabled: true,
+        }}
+        drawerContent={({ navigation }) => <DrawerContent navigation={navigation} />}>
+        <Drawer.Screen name="Main" component={Main} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  </GestureHandlerRootView>
 )
