@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* xtrackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* xtrackTests.m */; };
-		0C80B921A6F3F58F76C31292 /* libPods-xtrack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-xtrack.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -25,24 +23,12 @@
 		4EE3D9FB28CA53A00089EB82 /* Font-Awesome-5-Free-Solid-900.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EE3D9EE28CA53A00089EB82 /* Font-Awesome-5-Free-Solid-900.ttf */; };
 		4EE3D9FC28CA53A00089EB82 /* Font Awesome 5 Pro-Light-300.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EE3D9EF28CA53A00089EB82 /* Font Awesome 5 Pro-Light-300.otf */; };
 		4EE3D9FD28CA53A00089EB82 /* Font Awesome 5 Duotone-Solid-900.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EE3D9F028CA53A00089EB82 /* Font Awesome 5 Duotone-Solid-900.otf */; };
-		7242CBEAFA194A0A64682D20 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CB6CFA3B6F931A362A7925 /* ExpoModulesProvider.swift */; };
-		7699B88040F8A987B510C191 /* libPods-xtrack-xtrackTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-xtrack-xtrackTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		C4973263D755AFC58B046B06 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890AFAA4FAF86618F72D33DC /* ExpoModulesProvider.swift */; };
+		DAE6B2686C5D96E68D36B808 /* libPods-xtrack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF40A89D102AAB9C693ECAF /* libPods-xtrack.a */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		00E356F41AD99517003FC87E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = xtrack;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* xtrackTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = xtrackTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* xtrackTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = xtrackTests.m; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* xtrack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xtrack.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,8 +37,8 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = xtrack/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = xtrack/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = xtrack/main.m; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-xtrack-xtrackTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-xtrack-xtrackTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B4392A12AC88292D35C810B /* Pods-xtrack.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xtrack.debug.xcconfig"; path = "Target Support Files/Pods-xtrack/Pods-xtrack.debug.xcconfig"; sourceTree = "<group>"; };
+		22F43B39EA16CE46C92307FA /* Pods-xtrack.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xtrack.debug.xcconfig"; path = "Target Support Files/Pods-xtrack/Pods-xtrack.debug.xcconfig"; sourceTree = "<group>"; };
+		3FF40A89D102AAB9C693ECAF /* libPods-xtrack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-xtrack.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EE3D9E428CA539F0089EB82 /* Font Awesome 5 Pro-Regular-400.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Font Awesome 5 Pro-Regular-400.otf"; path = "../../assets/fonts/Font Awesome 5 Pro-Regular-400.otf"; sourceTree = "<group>"; };
 		4EE3D9E528CA539F0089EB82 /* Font Awesome 5 Brands-Regular-400.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Font Awesome 5 Brands-Regular-400.otf"; path = "../../assets/fonts/Font Awesome 5 Brands-Regular-400.otf"; sourceTree = "<group>"; };
 		4EE3D9E628CA539F0089EB82 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "../../assets/fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
@@ -66,30 +52,18 @@
 		4EE3D9EE28CA53A00089EB82 /* Font-Awesome-5-Free-Solid-900.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Font-Awesome-5-Free-Solid-900.ttf"; path = "../../assets/fonts/Font-Awesome-5-Free-Solid-900.ttf"; sourceTree = "<group>"; };
 		4EE3D9EF28CA53A00089EB82 /* Font Awesome 5 Pro-Light-300.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Font Awesome 5 Pro-Light-300.otf"; path = "../../assets/fonts/Font Awesome 5 Pro-Light-300.otf"; sourceTree = "<group>"; };
 		4EE3D9F028CA53A00089EB82 /* Font Awesome 5 Duotone-Solid-900.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Font Awesome 5 Duotone-Solid-900.otf"; path = "../../assets/fonts/Font Awesome 5 Duotone-Solid-900.otf"; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-xtrack.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xtrack.release.xcconfig"; path = "Target Support Files/Pods-xtrack/Pods-xtrack.release.xcconfig"; sourceTree = "<group>"; };
-		5B7EB9410499542E8C5724F5 /* Pods-xtrack-xtrackTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xtrack-xtrackTests.debug.xcconfig"; path = "Target Support Files/Pods-xtrack-xtrackTests/Pods-xtrack-xtrackTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-xtrack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-xtrack.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = xtrack/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		88C579AC80A26C3CBE6AB22B /* Pods-xtrack.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xtrack.release.xcconfig"; path = "Target Support Files/Pods-xtrack/Pods-xtrack.release.xcconfig"; sourceTree = "<group>"; };
 		890AFAA4FAF86618F72D33DC /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-xtrack/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		89C6BE57DB24E9ADA2F236DE /* Pods-xtrack-xtrackTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xtrack-xtrackTests.release.xcconfig"; path = "Target Support Files/Pods-xtrack-xtrackTests/Pods-xtrack-xtrackTests.release.xcconfig"; sourceTree = "<group>"; };
-		B8CB6CFA3B6F931A362A7925 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-xtrack-xtrackTests/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		00E356EB1AD99517003FC87E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7699B88040F8A987B510C191 /* libPods-xtrack-xtrackTests.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		13B07F8C1A680F5B00A75B9A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-xtrack.a in Frameworks */,
+				DAE6B2686C5D96E68D36B808 /* libPods-xtrack.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,18 +104,9 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-xtrack.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-xtrack-xtrackTests.a */,
+				3FF40A89D102AAB9C693ECAF /* libPods-xtrack.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		4AC09F526B42957E3E6E9EB1 /* xtrackTests */ = {
-			isa = PBXGroup;
-			children = (
-				B8CB6CFA3B6F931A362A7925 /* ExpoModulesProvider.swift */,
-			);
-			name = xtrackTests;
 			sourceTree = "<group>";
 		};
 		4EE3D9E328CA537C0089EB82 /* Assets */ = {
@@ -200,7 +165,6 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* xtrack.app */,
-				00E356EE1AD99517003FC87E /* xtrackTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -208,10 +172,8 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-xtrack.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-xtrack.release.xcconfig */,
-				5B7EB9410499542E8C5724F5 /* Pods-xtrack-xtrackTests.debug.xcconfig */,
-				89C6BE57DB24E9ADA2F236DE /* Pods-xtrack-xtrackTests.release.xcconfig */,
+				22F43B39EA16CE46C92307FA /* Pods-xtrack.debug.xcconfig */,
+				88C579AC80A26C3CBE6AB22B /* Pods-xtrack.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -220,7 +182,6 @@
 			isa = PBXGroup;
 			children = (
 				7E7026AC506CBFA7688D5B3D /* xtrack */,
-				4AC09F526B42957E3E6E9EB1 /* xtrackTests */,
 			);
 			name = ExpoModulesProviders;
 			sourceTree = "<group>";
@@ -228,39 +189,18 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* xtrackTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "xtrackTests" */;
-			buildPhases = (
-				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
-				00E356EA1AD99517003FC87E /* Sources */,
-				00E356EB1AD99517003FC87E /* Frameworks */,
-				00E356EC1AD99517003FC87E /* Resources */,
-				C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */,
-				F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				00E356F51AD99517003FC87E /* PBXTargetDependency */,
-			);
-			name = xtrackTests;
-			productName = xtrackTests;
-			productReference = 00E356EE1AD99517003FC87E /* xtrackTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		13B07F861A680F5B00A75B9A /* xtrack */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "xtrack" */;
 			buildPhases = (
-				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
+				672B53E0338777B62AE603C6 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
-				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
+				B71973059C545A4E9AEEDFDB /* [CP] Embed Pods Frameworks */,
+				5899609AFAC7819A5CBA7B03 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -279,10 +219,6 @@
 			attributes = {
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
-					00E356ED1AD99517003FC87E = {
-						CreatedOnToolsVersion = 6.2;
-						TestTargetID = 13B07F861A680F5B00A75B9A;
-					};
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1120;
 					};
@@ -302,19 +238,11 @@
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* xtrack */,
-				00E356ED1AD99517003FC87E /* xtrackTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		00E356EC1AD99517003FC87E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		13B07F8E1A680F5B00A75B9A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -356,46 +284,24 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
+		5899609AFAC7819A5CBA7B03 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-xtrack/Pods-xtrack-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-xtrack/Pods-xtrack-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-xtrack/Pods-xtrack-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-xtrack/Pods-xtrack-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-xtrack/Pods-xtrack-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-xtrack/Pods-xtrack-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-xtrack-xtrackTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
+		672B53E0338777B62AE603C6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -417,55 +323,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */ = {
+		B71973059C545A4E9AEEDFDB /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-xtrack-xtrackTests/Pods-xtrack-xtrackTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-xtrack/Pods-xtrack-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-xtrack-xtrackTests/Pods-xtrack-xtrackTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-xtrack/Pods-xtrack-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-xtrack-xtrackTests/Pods-xtrack-xtrackTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-xtrack/Pods-xtrack-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-xtrack/Pods-xtrack-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-xtrack/Pods-xtrack-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-xtrack-xtrackTests/Pods-xtrack-xtrackTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-xtrack-xtrackTests/Pods-xtrack-xtrackTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-xtrack-xtrackTests/Pods-xtrack-xtrackTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-xtrack/Pods-xtrack-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -490,15 +362,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		00E356EA1AD99517003FC87E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				00E356F31AD99517003FC87E /* xtrackTests.m in Sources */,
-				7242CBEAFA194A0A64682D20 /* ExpoModulesProvider.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		13B07F871A680F5B00A75B9A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -511,71 +374,10 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* xtrack */;
-			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		00E356F61AD99517003FC87E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-xtrack-xtrackTests.debug.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = xtrackTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lc++",
-					"$(inherited)",
-				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/xtrack.app/xtrack";
-			};
-			name = Debug;
-		};
-		00E356F71AD99517003FC87E /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-xtrack-xtrackTests.release.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = xtrackTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lc++",
-					"$(inherited)",
-				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/xtrack.app/xtrack";
-			};
-			name = Release;
-		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-xtrack.debug.xcconfig */;
+			baseConfigurationReference = 22F43B39EA16CE46C92307FA /* Pods-xtrack.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -604,7 +406,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-xtrack.release.xcconfig */;
+			baseConfigurationReference = 88C579AC80A26C3CBE6AB22B /* Pods-xtrack.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -769,15 +571,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "xtrackTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				00E356F61AD99517003FC87E /* Debug */,
-				00E356F71AD99517003FC87E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "xtrack" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
