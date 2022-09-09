@@ -41,6 +41,7 @@ export default connect(
     openOnForm: state.common.openOnForm,
     allTrans: state.common.allTrans,
     language: state.common.language,
+    currency: state.common.currency,
     accounts: state.accounts.items,
     categories: state.categories.items,
     appVersion: state.common.appVersion,
@@ -51,6 +52,7 @@ export default connect(
     toggleOpenOnForm: () => dispatch({ type: "TOGGLE_OPEN_ON_FORM" }),
     toggleAllTrans: () => dispatch({ type: "TOGGLE_ALL_TRANS" }),
     setLanguage: language => dispatch({ type: "SET_LANGUAGE", language }),
+    setBaseCurrency: currency => dispatch({ type: "SET_BASE_CURRENCY", currency }),
     setTheme: theme => {
       changeStatusBar(theme)
       dispatch({ type: "SET_THEME", theme })

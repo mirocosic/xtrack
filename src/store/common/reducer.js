@@ -59,6 +59,12 @@ const common = (state = initialState, action) => {
     case "RESTORE_BACKUP":
       return action.data.common
 
+    case "SET_BASE_CURRENCY":
+      return {
+        ...state,
+        currency: action.currency,
+      }
+
     default:
       return state
   }

@@ -1,9 +1,10 @@
-import React from "react"
+import React, { useRef } from "react"
 import { View, Alert, TouchableOpacity } from "react-native"
 import { RectButton } from "react-native-gesture-handler"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { connectActionSheet } from "@expo/react-native-action-sheet"
 import ToggleSwitch from "toggle-switch-react-native"
+import { Modalize } from "react-native-modalize"
 
 import Icon from "../../components/icon"
 import Screen from "../../components/screen"
@@ -15,6 +16,8 @@ import palette from "../../utils/palette"
 
 const Settings = props => {
   const darkMode = useDarkTheme()
+
+  const currencyModal = useRef()
 
   const selectLanguage = () => {
     const { setLanguage } = props
@@ -82,7 +85,7 @@ const Settings = props => {
     }
   }
 
-  const { navigation, openOnForm, toggleOpenOnForm, theme, language, allTrans, toggleAllTrans, appVersion } = props
+  const { navigation, openOnForm, toggleOpenOnForm, theme, language, allTrans, toggleAllTrans, currency, setBaseCurrency } = props
 
   const insets = useSafeAreaInsets()
 
@@ -182,10 +185,51 @@ const Settings = props => {
               <Copy style={{ textTransform: "capitalize" }}>{__(theme)}</Copy>
             </TouchableOpacity>
           </View>
+
+          <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+            <Copy>Currency</Copy>
+            <TouchableOpacity onPress={() => currencyModal.current.open()}>
+              <Copy style={{ fontSize: 16 }}>{currency || "HRK"}</Copy>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
 
       <Copy style={{ textAlign: "right", marginBottom: 10, marginRight: 10 }}>2.0.1 (2)</Copy>
+
+      <Modalize adjustToContentHeight modalStyle={[styles.modal, darkMode && styles.modalDark]} ref={currencyModal}>
+        <View style={{ padding: 20 }}>
+          <TouchableOpacity
+            style={{ margin: 20 }}
+            onPress={() => {
+              //this.setState({ account: { ...account, currency: "HRK" } })
+              setBaseCurrency("HRK")
+              currencyModal.current.close()
+            }}>
+            <Copy style={{ fontSize: 14 }}>HRK - Croatian Kuna</Copy>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={{ margin: 20 }}
+            onPress={() => {
+              //this.setState({ account: { ...account, currency: "EUR" } })
+              setBaseCurrency("EUR")
+              currencyModal.current.close()
+            }}>
+            <Copy style={{ fontSize: 14 }}>EUR - European Euro</Copy>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={{ margin: 20 }}
+            onPress={() => {
+              //this.setState({ account: { ...account, currency: "USD" } })
+              setBaseCurrency("USD")
+              currencyModal.current.close()
+            }}>
+            <Copy style={{ fontSize: 14 }}>USD - United States Dollar</Copy>
+          </TouchableOpacity>
+        </View>
+      </Modalize>
     </Screen>
   )
 }

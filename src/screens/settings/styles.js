@@ -14,5 +14,7 @@ export default StyleSheet.create({
     padding: 10,
     paddingLeft: 20,
     paddingRight: 20,
-  }
+  },
+
+  modalDark: { backgroundColor: palette.darkGray },
 })

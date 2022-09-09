@@ -14,5 +14,3 @@ export function formatCurrency(input = 0, currency = "HRK", digits = 2) {
 
   return formatter.format(input) /* $2,500.00 */
 }
-
-export const miro = "miro"

@@ -1,12 +1,5 @@
 import React, { Component } from "react"
-import {
-  Alert,
-  Appearance,
-  ScrollView,
-  View,
-  TextInput,
-  TouchableOpacity,
-} from "react-native"
+import { Alert, Appearance, ScrollView, View, TextInput, TouchableOpacity } from "react-native"
 import { Modalize } from "react-native-modalize"
 import { get } from "lodash"
 import LinearGradient from "react-native-linear-gradient"
@@ -22,14 +15,7 @@ import { isAndroid } from "../../utils/os-utils"
 import palette from "../../utils/palette"
 import __ from "../../utils/translations"
 
-const colors = [
-  "#FF5722",
-  "#F39A27",
-  "#2196F3",
-  "#0097A7",
-  "#673AB7",
-  "#3F51B5",
-]
+const colors = ["#FF5722", "#F39A27", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"]
 
 class AccountEdit extends Component {
   state = {
@@ -69,28 +55,22 @@ class AccountEdit extends Component {
 
   handleDelete = account => {
     const { remove, removeTransactions, navigation, transactions } = this.props
-    const count = transactions.filter(
-      item => account.id === get(item, "accountId"),
-    ).length
+    const count = transactions.filter(item => account.id === get(item, "accountId")).length
     if (count > 0) {
-      Alert.alert(
-        "Warning!",
-        "Cannot delete account that contains transactions",
-        [
-          {
-            text: "Cancel",
-            style: "cancel",
+      Alert.alert("Warning!", "Cannot delete account that contains transactions", [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Delete all transactions",
+          onPress: () => {
+            removeTransactions(account)
+            remove(account)
+            navigation.goBack()
           },
-          {
-            text: "Delete all transactions",
-            onPress: () => {
-              removeTransactions(account)
-              remove(account)
-              navigation.goBack()
-            },
-          },
-        ],
-      )
+        },
+      ])
     } else {
       remove(account)
       navigation.goBack()
@@ -99,25 +79,13 @@ class AccountEdit extends Component {
 
   render() {
     const { theme, insets } = this.props
-    const darkMode =
-      theme === "system"
-        ? Appearance.getColorScheme() === "dark"
-        : theme === "dark"
+    const darkMode = theme === "system" ? Appearance.getColorScheme() === "dark" : theme === "dark"
     const { account } = this.state
     return (
       <Screen>
-        <Header
-          icon={
-            <Icon type={account.icon} textStyle={{ color: account.color }} />
-          }
-          title={account.name}
-          backBtn={isAndroid}
-        />
+        <Header icon={<Icon type={account.icon} textStyle={{ color: account.color }} />} title={account.name} backBtn={isAndroid} />
 
-        <ScrollView
-          scrollEnabled={false}
-          style={{ paddingHorizontal: 20, paddingTop: 20 }}
-          contentContainerStyle={{ flex: 1, justifyContent: "space-between" }}>
+        <ScrollView scrollEnabled={false} style={{ paddingHorizontal: 20, paddingTop: 20 }} contentContainerStyle={{ flex: 1, justifyContent: "space-between" }}>
           <View>
             <View style={styles.inputContainer}>
               <Copy>Name</Copy>
@@ -143,10 +111,7 @@ class AccountEdit extends Component {
             <View style={[styles.inlineBetween, { margin: 10 }]}>
               <Copy>Icon</Copy>
               <TouchableOpacity onPress={() => this.iconsModal.current.open()}>
-                <Icon
-                  type={account.icon}
-                  textStyle={{ color: account.color, fontSize: 30 }}
-                />
+                <Icon type={account.icon} textStyle={{ color: account.color, fontSize: 30 }} />
               </TouchableOpacity>
             </View>
 
@@ -208,17 +173,10 @@ class AccountEdit extends Component {
               </TouchableOpacity>
             </View>
 
-            <View
-              style={[
-                styles.inputContainer,
-                { marginTop: 10, marginBottom: 10 },
-              ]}>
+            <View style={[styles.inputContainer, { marginTop: 10, marginBottom: 10 }]}>
               <Copy>Starting Balance</Copy>
               <TextInput
-                style={[
-                  styles.balanceInput,
-                  darkMode && styles.balanceInputDark,
-                ]}
+                style={[styles.balanceInput, darkMode && styles.balanceInputDark]}
                 keyboardType="numeric"
                 onChangeText={text =>
                   this.setState({
@@ -233,7 +191,9 @@ class AccountEdit extends Component {
               />
             </View>
 
-            <View style={[styles.inlineBetween, { margin: 10 }]}>
+            {
+              // Disabled until properly implemented
+              /* <View style={[styles.inlineBetween, { margin: 10 }]}>
               <Copy>Currency</Copy>
               <TouchableOpacity
                 onPress={() => this.currencyModal.current.open()}>
@@ -241,7 +201,8 @@ class AccountEdit extends Component {
                   {account.currency || "HRK"}
                 </CopyBlue>
               </TouchableOpacity>
-            </View>
+            </View> */
+            }
           </View>
 
           <View
@@ -262,24 +223,15 @@ class AccountEdit extends Component {
                 }}
               />
             </BorderlessButton>
-            <TouchableOpacity
-              onPress={() => this.handleSave(account)}
-              style={styles.addWrap}>
-              <LinearGradient
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                colors={["#2292f4", "#2031f4"]}
-                style={[styles.add]}>
+            <TouchableOpacity onPress={() => this.handleSave(account)} style={styles.addWrap}>
+              <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={["#2292f4", "#2031f4"]} style={[styles.add]}>
                 <Copy style={{ color: "white" }}>Save</Copy>
               </LinearGradient>
             </TouchableOpacity>
           </View>
         </ScrollView>
 
-        <Modalize
-          adjustToContentHeight
-          modalStyle={[styles.modal, darkMode && styles.modalDark]}
-          ref={this.iconsModal}>
+        <Modalize adjustToContentHeight modalStyle={[styles.modal, darkMode && styles.modalDark]} ref={this.iconsModal}>
           <View style={{ padding: 20 }}>
             <CategoryIcons
               selected={account.icon || "car"}
@@ -291,19 +243,12 @@ class AccountEdit extends Component {
           </View>
         </Modalize>
 
-        <Modalize
-          adjustToContentHeight
-          modalStyle={[styles.modal, darkMode && styles.modalDark]}
-          ref={this.colorModal}>
+        <Modalize adjustToContentHeight modalStyle={[styles.modal, darkMode && styles.modalDark]} ref={this.colorModal}>
           <View style={styles.colorPicker}>
             {colors.map(color => (
               <TouchableOpacity
                 key={color}
-                style={[
-                  styles.colorBox,
-                  account.color === color && styles.selectedColor,
-                  { backgroundColor: color },
-                ]}
+                style={[styles.colorBox, account.color === color && styles.selectedColor, { backgroundColor: color }]}
                 onPress={() => {
                   this.setState({ account: { ...account, ...{ color } } })
                   this.colorModal.current.close()
@@ -313,10 +258,7 @@ class AccountEdit extends Component {
           </View>
         </Modalize>
 
-        <Modalize
-          adjustToContentHeight
-          modalStyle={[styles.modal, darkMode && styles.modalDark]}
-          ref={this.currencyModal}>
+        <Modalize adjustToContentHeight modalStyle={[styles.modal, darkMode && styles.modalDark]} ref={this.currencyModal}>
           <View style={{ padding: 20 }}>
             <TouchableOpacity
               style={{ margin: 20 }}

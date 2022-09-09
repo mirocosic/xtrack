@@ -25,5 +25,6 @@ export default {
   openOnForm: false,
   allTrans: false,
   language: defaultLanguage[defaultLocaleCode],
+  currency: "HRK",
   appVersion: "v2.0.1 (2)",
 }
