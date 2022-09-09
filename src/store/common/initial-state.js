@@ -26,5 +26,4 @@ export default {
   allTrans: false,
   language: defaultLanguage[defaultLocaleCode],
   currency: "HRK",
-  appVersion: "v2.0.1 (2)",
 }

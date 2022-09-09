@@ -12,7 +12,7 @@ import { storage } from "../../store/async-storage"
 import { Screen, Header, Icon, Copy } from "../../components"
 import { store } from "../../store"
 import { makeUUID } from "../../utils/helper-gnomes"
-import { isAndroid } from "../../utils/os-utils"
+import { isAndroid, appVersion } from "../../utils/os-utils"
 import styles from "./styles"
 import { useDarkTheme } from "../../utils/ui-utils"
 import palette from "../../utils/palette"
@@ -47,7 +47,7 @@ export default props => {
     const state = store.getState()
 
     //append state to backups
-    const newBackups = [...parsedBackups, { id: makeUUID(), name: moment().format("DD/MM/yyyy HH:MM:ss") + " - " + "2.0.1 (2)", data: state }]
+    const newBackups = [...parsedBackups, { id: makeUUID(), name: moment().format("DD/MM/yyyy HH:MM:ss") + " - " + appVersion, data: state }]
 
     //save to storage
     //await setItem(JSON.stringify(newBackups))

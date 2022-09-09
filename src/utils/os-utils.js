@@ -1,5 +1,7 @@
 import { Platform } from "react-native"
 
+const appVersion = "2.0.1 (3)"
+
 const OS_ANDROID = "android"
 const OS_IOS = "ios"
 
@@ -28,4 +30,4 @@ function getExtension(path) {
   return extension
 }
 
-export { OS_ANDROID, OS_IOS, isAndroid, isIos, pickComponent, getExtension }
+export { OS_ANDROID, OS_IOS, isAndroid, isIos, pickComponent, getExtension, appVersion }

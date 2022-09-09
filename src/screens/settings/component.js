@@ -12,6 +12,7 @@ import { Copy } from "../../components/typography"
 import __ from "../../utils/translations"
 import styles from "./styles"
 import { useDarkTheme } from "../../utils/ui-utils"
+import { appVersion } from "../../utils/os-utils"
 import palette from "../../utils/palette"
 
 const Settings = props => {
@@ -195,7 +196,7 @@ const Settings = props => {
         </View>
       </View>
 
-      <Copy style={{ textAlign: "right", marginBottom: 10, marginRight: 10 }}>2.0.1 (2)</Copy>
+      <Copy style={{ textAlign: "right", marginBottom: 10, marginRight: 10 }}>{appVersion}</Copy>
 
       <Modalize adjustToContentHeight modalStyle={[styles.modal, darkMode && styles.modalDark]} ref={currencyModal}>
         <View style={{ padding: 20 }}>
