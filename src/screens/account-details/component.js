@@ -1,8 +1,9 @@
 import React, { useState } from "react"
 import { ScrollView, View, Dimensions } from "react-native"
-import { RectButton } from "react-native-gesture-handler"
+import { RectButton, BorderlessButton } from "react-native-gesture-handler"
 import { get, isEmpty } from "lodash"
 import { PieChart } from "react-native-chart-kit"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 import { Screen, Header, Icon, Copy } from "../../components"
 import { isAndroid } from "../../utils/os-utils"
@@ -16,6 +17,7 @@ export default ({
   accounts,
   transactions,
   categories,
+  navigation,
   route: {
     params: { accountId },
   },
@@ -24,6 +26,7 @@ export default ({
   const account = accounts.find(acc => acc.id === accountId)
   const [showExpensesChart, setShowExpensesChart] = useState(false)
   const darkMode = useDarkTheme()
+  const insets = useSafeAreaInsets()
 
   const sum = transactions => transactions.reduce((acc, transaction) => acc + calcAmount(transaction), 0)
 
@@ -127,6 +130,20 @@ export default ({
           />
         </View>
       </ScrollView>
+
+      <View style={{ justifyContent: "center", alignItems: "center", bottom: insets.bottom, position: "absolute", width: "100%" }}>
+        <BorderlessButton onPress={() => navigation.goBack()}>
+          <Icon
+            type="chevron-down"
+            textStyle={{ color: darkMode ? palette.light : palette.dark }}
+            style={{
+              borderColor: darkMode ? palette.light : palette.dark,
+              borderWidth: 1,
+              borderRadius: 10,
+            }}
+          />
+        </BorderlessButton>
+      </View>
     </Screen>
   )
 }

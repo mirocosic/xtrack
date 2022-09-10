@@ -1,8 +1,8 @@
 import React, { Component } from "react"
-import { Alert, Appearance, View, ScrollView } from "react-native"
+import { Alert, View, ScrollView, Appearance } from "react-native"
 import { get } from "lodash"
 import Swipeable from "react-native-gesture-handler/Swipeable"
-import { RectButton, TouchableOpacity } from "react-native-gesture-handler"
+import { RectButton, BorderlessButton, TouchableOpacity } from "react-native-gesture-handler"
 import LinearGradient from "react-native-linear-gradient"
 import { withSafeAreaInsets } from "react-native-safe-area-context"
 
@@ -76,12 +76,17 @@ class Accounts extends Component {
 
     return (
       <Screen>
-        <Header title="Accounts" backBtn withInsets />
+        <Header title="Accounts" subtitle="Create separate accounts for your transactions" withInsets />
         <ScrollView contentContainerStyle={{ paddingBottom: insets.bottom + 50 }}>
           <View style={{ borderColor: "gray", borderTopWidth: 1 }}>
             {accounts.map(account => (
               <Swipeable key={account.id} renderRightActions={() => this.renderDeleteButton(account)} containerStyle={styles.swiperWrap}>
-                <RectButton key={account.id} onPress={() => navigation.navigate("AccountEdit", { id: account.id })} activeOpacity={darkMode ? 0.5 : 0.1} style={[styles.wrap, darkMode && styles.wrapDark]} rippleColor={darkMode ? palette.darkGray : palette.lightBlue}>
+                <RectButton
+                  key={account.id}
+                  onPress={() => navigation.navigate("AccountEdit", { id: account.id })}
+                  activeOpacity={darkMode ? 0.5 : 0.1}
+                  style={[styles.wrap, darkMode && styles.wrapDark]}
+                  rippleColor={darkMode ? palette.darkGray : palette.lightBlue}>
                   <View
                     style={{
                       flexDirection: "row",
@@ -103,21 +108,30 @@ class Accounts extends Component {
           </View>
         </ScrollView>
 
-        <View
-          style={[
-            isAndroid && { paddingBottom: 10 },
-            {
-              width: "80%",
-              left: "10%",
-              bottom: insets.bottom,
-              position: "absolute",
-            },
-          ]}>
-          <TouchableOpacity onPress={() => navigation.navigate("AccountEdit")} style={styles.addWrap}>
-            <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={["#2292f4", "#2031f4"]} style={[{ height: 50, width: 200 }, styles.add]}>
-              <Copy style={{ color: "white" }}>Add new account</Copy>
-            </LinearGradient>
-          </TouchableOpacity>
+        {
+          // todo: rewrite this better, just an exploration
+        }
+        <View style={[isAndroid && { paddingBottom: 10 }, { width: "90%", left: "5%", bottom: insets.bottom, position: "absolute", flexDirection: "row" }]}>
+          <View style={[styles.addWrap, { marginRight: 10 }]}>
+            <BorderlessButton onPress={() => navigation.goBack()}>
+              <Icon
+                type="chevron-left"
+                textStyle={{ color: Appearance.getColorScheme() === "dark" ? palette.light : palette.dark }}
+                style={{
+                  borderColor: Appearance.getColorScheme() === "dark" ? palette.light : palette.dark,
+                  borderWidth: 1,
+                  borderRadius: 10,
+                }}
+              />
+            </BorderlessButton>
+          </View>
+          <View style={{ flex: 1 }}>
+            <TouchableOpacity onPress={() => navigation.navigate("AccountEdit")} style={styles.addWrap}>
+              <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={["#2292f4", "#2031f4"]} style={[{ height: 50, width: 200 }, styles.add]}>
+                <Copy style={{ color: "white" }}>Add new account</Copy>
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
         </View>
       </Screen>
     )

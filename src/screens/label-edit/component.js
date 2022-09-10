@@ -56,9 +56,9 @@ export default ({ navigation, route: { params }, edit, add, deleteLabel }) => {
         <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: insets.bottom }}>
           <BorderlessButton
             onPress={() => {
-              handleDelete(label)
+              navigation.goBack()
             }}>
-            <Icon type="trash-alt" textStyle={{ color: darkMode ? palette.light : palette.dark }} style={{ borderColor: darkMode ? palette.light : palette.dark, borderWidth: 1, borderRadius: 10 }} />
+            <Icon type="chevron-down" textStyle={{ color: darkMode ? palette.light : palette.dark }} style={{ borderColor: darkMode ? palette.light : palette.dark, borderWidth: 1, borderRadius: 10 }} />
           </BorderlessButton>
           <TouchableOpacity onPress={() => handleSave(label)} style={styles.addWrap}>
             <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={["#2292f4", "#2031f4"]} style={[styles.add]}>

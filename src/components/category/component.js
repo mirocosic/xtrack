@@ -11,12 +11,9 @@ import styles from "./styles"
 import palette from "../../utils/palette"
 
 class Category extends Component {
-
   countTransactions = catId => {
     const { transactions } = this.props
-    return transactions.filter(
-      transaction => get(transaction, "categoryId") === catId,
-    ).length
+    return transactions.filter(transaction => get(transaction, "categoryId") === catId).length
   }
 
   renderDeleteButton = cat => (
@@ -30,11 +27,7 @@ class Category extends Component {
   )
 
   renderEditButton = cat => (
-    <RectButton
-      style={styles.editButton}
-      onPress={() =>
-        this.props.navigation.navigate("CategoryEdit", { id: cat.id })
-      }>
+    <RectButton style={styles.editButton} onPress={() => this.props.navigation.navigate("CategoryEdit", { id: cat.id })}>
       <Icon type="pen" />
     </RectButton>
   )
@@ -70,37 +63,24 @@ class Category extends Component {
   render() {
     const { selectCategory, navigation, data, theme } = this.props
     const cat = data
-    const darkMode =  theme === "system" ? Appearance.getColorScheme() === "dark" : theme === "dark"
+    const darkMode = theme === "system" ? Appearance.getColorScheme() === "dark" : theme === "dark"
 
     return (
-      <Swipeable
-        renderRightActions={() => this.renderActions(cat)}
-        containerStyle={{ borderBottomWidth: 1, borderColor: "gray" }}>
+      <Swipeable renderRightActions={() => this.renderActions(cat)} containerStyle={{ borderBottomWidth: 1, borderColor: "gray" }}>
         <RectButton
           key={cat.id}
           style={[styles.wrap, darkMode && styles.wrapDark]}
           activeOpacity={darkMode ? 0.5 : 0.1}
           rippleColor={darkMode ? palette.darkGray : palette.lightBlue}
           onPress={() => navigation.navigate("CategoryEdit", { id: cat.id })}>
-          <View
-            key={cat.id}
-            style={[styles.categoryWrap, darkMode && styles.catWrapDark]}>
+          <View key={cat.id} style={[styles.categoryWrap, darkMode && styles.catWrapDark]}>
             <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
-              <Icon
-                type={cat.icon}
-                style={{ marginRight: 10 }}
-                textStyle={{ color: get(cat, "color", "blue") }}
-              />
-              <Copy style={{flexWrap: "wrap", flex: 1}}>
-                {`${truncate(cat.name, {length: 135})} `}
+              <Icon type={cat.icon} style={{ marginRight: 10 }} textStyle={{ color: get(cat, "color", "blue") }} />
+              <Copy style={{ flexWrap: "wrap", flex: 1 }}>
+                {`${truncate(cat.name, { length: 135 })} `}
                 <Copy style={{ fontSize: 10 }}>{`(${this.countTransactions(cat.id)})`}</Copy>
               </Copy>
-              {cat.defaultCategory && (
-                <Icon
-                  type="star"
-                  textStyle={{ color: "orange", fontSize: 10 }}
-                />
-              )}
+              {cat.defaultCategory && <Icon type="star" textStyle={{ color: "orange", fontSize: 10 }} />}
             </View>
 
             <TouchableOpacity
@@ -108,11 +88,7 @@ class Category extends Component {
                 selectCategory(cat)
                 navigation.navigate("CategoryEdit")
               }}>
-              <Icon
-                type="chevronRight"
-                style={{ backgroundColor: "transparent" }}
-                textStyle={{ color: "gray" }}
-              />
+              <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
             </TouchableOpacity>
           </View>
         </RectButton>

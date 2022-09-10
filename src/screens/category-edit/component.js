@@ -66,7 +66,7 @@ class CategoryEdit extends Component {
 
   render() {
     const { category } = this.state
-    const { theme, insets } = this.props
+    const { theme, insets, navigation } = this.props
     const darkMode = theme === "system" ? Appearance.getColorScheme() === "dark" : theme === "dark"
     return (
       <Screen>
@@ -190,9 +190,9 @@ class CategoryEdit extends Component {
               alignItems: "center",
               marginBottom: insets.bottom,
             }}>
-            <BorderlessButton onPress={() => this.deleteCategory(category)}>
+            <BorderlessButton onPress={() => navigation.goBack()}>
               <Icon
-                type="trash-alt"
+                type="chevron-down"
                 textStyle={{ color: darkMode ? palette.light : palette.dark }}
                 style={{
                   borderColor: darkMode ? palette.light : palette.dark,

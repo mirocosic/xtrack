@@ -317,7 +317,15 @@ class TransactionForm extends Component {
           </View>
 
           <View style={[styles.formFieldWrap, { alignItems: "center", paddingBottom: 5 }]}>
-            <TextInput onChangeText={value => this.setState({ transaction: { ...transaction, note: value } })} value={transaction.note} placeholder={__("enter note...")} placeholderTextColor="gray" maxLength={30} style={[styles.noteInput, darkMode && styles.noteInputDark]} keyboardAppearance={darkMode ? "dark" : "light"} />
+            <TextInput
+              onChangeText={value => this.setState({ transaction: { ...transaction, note: value } })}
+              value={transaction.note}
+              placeholder={__("enter note...")}
+              placeholderTextColor="gray"
+              maxLength={30}
+              style={[styles.noteInput, darkMode && styles.noteInputDark]}
+              keyboardAppearance={darkMode ? "dark" : "light"}
+            />
           </View>
 
           {!moreOptionsOpen ? (
@@ -325,7 +333,19 @@ class TransactionForm extends Component {
               <CopyBlue>More Options</CopyBlue>
             </TouchableOpacity>
           ) : (
-            <FormMoreOptions navigation={navigation} transaction={transaction} labels={labels} selectSchedule={this.selectRecurringSchedule} submitForm={this.submitForm} deleteTransaction={() => this.deleteTransaction(transaction)} toggleRecuring={() => this.setState({ transaction: { ...transaction, recurring: !transaction.recurring } })} closeMoreOptions={() => this.setState({ moreOptionsOpen: false })} onRemoveLabel={label => this.removeLabel(label)} labelsModalRef={this.labelsModal} recurringCalendarModalRef={this.recurringCalendarModal} />
+            <FormMoreOptions
+              navigation={navigation}
+              transaction={transaction}
+              labels={labels}
+              selectSchedule={this.selectRecurringSchedule}
+              submitForm={this.submitForm}
+              deleteTransaction={() => this.deleteTransaction(transaction)}
+              toggleRecuring={() => this.setState({ transaction: { ...transaction, recurring: !transaction.recurring } })}
+              closeMoreOptions={() => this.setState({ moreOptionsOpen: false })}
+              onRemoveLabel={label => this.removeLabel(label)}
+              labelsModalRef={this.labelsModal}
+              recurringCalendarModalRef={this.recurringCalendarModal}
+            />
           )}
         </View>
 
@@ -334,6 +354,7 @@ class TransactionForm extends Component {
             handlePress={value => this.setState({ transaction: { ...transaction, ...{ amount: transaction.amount + value } } })}
             handleSubmit={() => this.submitForm()}
             setAmount={value => this.setState({ transaction: { ...transaction, ...{ amount: value } } })}
+            navigation={navigation}
             del={() =>
               transaction.amount &&
               this.setState({

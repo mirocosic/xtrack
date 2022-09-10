@@ -35,4 +35,18 @@ export default StyleSheet.create({
     padding: 5,
     color: palette.white,
   },
+
+  subtitle: {
+    top: isIos ? 3 : 0,
+    //fontFamily: font,
+    fontSize: 12,
+    padding: 5,
+    color: palette.black,
+  },
+
+  subtitleDark: {
+    fontSize: 12,
+    padding: 5,
+    color: palette.gray,
+  },
 })

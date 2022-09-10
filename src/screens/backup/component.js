@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
-import { Alert, View, ScrollView, TouchableOpacity } from "react-native"
+import { Alert, View, ScrollView, TouchableOpacity, Appearance } from "react-native"
 import { get } from "lodash"
 import LinearGradient from "react-native-linear-gradient"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import Swipeable from "react-native-gesture-handler/Swipeable"
-import { RectButton } from "react-native-gesture-handler"
+import { RectButton, BorderlessButton } from "react-native-gesture-handler"
 import moment from "moment"
 import Share from "react-native-share"
 import { storage } from "../../store/async-storage"
@@ -133,7 +133,7 @@ export default props => {
 
   return (
     <Screen>
-      <Header title="Backup / Restore" backBtn withInsets />
+      <Header title="Backup / Restore" subtitle="Backup your current data on device and restore previous backups" withInsets />
       <ScrollView contentContainerStyle={{ paddingBottom: insets.bottom + 50 }}>
         {backups.map(item => (
           <Swipeable key={item.id} renderRightActions={() => renderActions(item.id)} containerStyle={styles.swiperWrap}>
@@ -146,12 +146,30 @@ export default props => {
         ))}
       </ScrollView>
 
-      <View style={[isAndroid && { paddingBottom: 10 }, { width: "80%", left: "10%", bottom: insets.bottom, position: "absolute" }]}>
-        <TouchableOpacity onPress={createBackup} style={styles.addWrap}>
-          <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={["#2292f4", "#2031f4"]} style={[{ height: 50, width: 200 }, styles.add]}>
-            <Copy style={{ color: "white" }}>Create Backup</Copy>
-          </LinearGradient>
-        </TouchableOpacity>
+      {
+        // todo: rewrite this better, just an exploration
+      }
+      <View style={[isAndroid && { paddingBottom: 10 }, { width: "90%", left: "5%", bottom: insets.bottom, position: "absolute", flexDirection: "row" }]}>
+        <View style={[styles.addWrap, { marginRight: 10 }]}>
+          <BorderlessButton onPress={() => props.navigation.goBack()}>
+            <Icon
+              type="chevron-left"
+              textStyle={{ color: Appearance.getColorScheme() === "dark" ? palette.light : palette.dark }}
+              style={{
+                borderColor: Appearance.getColorScheme() === "dark" ? palette.light : palette.dark,
+                borderWidth: 1,
+                borderRadius: 10,
+              }}
+            />
+          </BorderlessButton>
+        </View>
+        <View style={{ flex: 1 }}>
+          <TouchableOpacity onPress={createBackup} style={styles.addWrap}>
+            <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={["#2292f4", "#2031f4"]} style={[{ height: 50, width: 200 }, styles.add]}>
+              <Copy style={{ color: "white" }}>Create Backup</Copy>
+            </LinearGradient>
+          </TouchableOpacity>
+        </View>
       </View>
     </Screen>
   )

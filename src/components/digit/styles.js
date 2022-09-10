@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native"
 import palette from "../../utils/palette"
 
 export default StyleSheet.create({
-
   copy: { fontSize: 22 },
 
   copyDark: { color: "white" },
@@ -23,11 +22,14 @@ export default StyleSheet.create({
     backgroundColor: "white",
   },
 
+  digitBack: {
+    color: palette.blue,
+  },
+
   digitDark: {
     backgroundColor: palette.darkGray,
     color: "white",
   },
 
   pressedDigit: { backgroundColor: palette.blue },
-
 })

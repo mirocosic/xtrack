@@ -32,6 +32,12 @@ const TitleCmp = props => {
   return <Text style={{ ...defaultStyle, ...style }}>{__(children)}</Text>
 }
 
+const SubtitleCmp = props => {
+  const { style, children } = props
+  const defaultStyle = useTheme() === "dark" ? styles.subtitleDark : styles.subtitle
+  return <Text style={{ ...defaultStyle, ...style }}>{__(children)}</Text>
+}
+
 export const Copy = connect(state => ({ language: state.common.language }), null)(CopyCmp)
 
 export const CopyInverted = connect(state => ({ language: state.common.language }), null)(CopyInvertedCmp)
@@ -39,3 +45,5 @@ export const CopyInverted = connect(state => ({ language: state.common.language 
 export const CopyBlue = connect(state => ({ darkMode: state.common.darkMode }), null)(CopyBlueCmp)
 
 export const Title = connect(state => ({ darkMode: state.common.darkMode }), null)(TitleCmp)
+
+export const Subtitle = connect(state => ({ darkMode: state.common.darkMode }), null)(SubtitleCmp)

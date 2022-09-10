@@ -9,7 +9,7 @@ import { withSafeAreaInsets } from "react-native-safe-area-context"
 import { Screen, Header } from "../../components"
 import CategoryIcons from "../../components/category-icons"
 import Icon from "../../components/icon"
-import { Copy, CopyBlue } from "../../components/typography"
+import { Copy } from "../../components/typography"
 import styles from "./styles"
 import { isAndroid } from "../../utils/os-utils"
 import palette from "../../utils/palette"
@@ -78,7 +78,7 @@ class AccountEdit extends Component {
   }
 
   render() {
-    const { theme, insets } = this.props
+    const { theme, insets, navigation } = this.props
     const darkMode = theme === "system" ? Appearance.getColorScheme() === "dark" : theme === "dark"
     const { account } = this.state
     return (
@@ -212,9 +212,9 @@ class AccountEdit extends Component {
               alignItems: "center",
               marginBottom: insets.bottom,
             }}>
-            <BorderlessButton onPress={() => this.handleDelete(account)}>
+            <BorderlessButton onPress={() => navigation.goBack()}>
               <Icon
-                type="trash-alt"
+                type="chevron-down"
                 textStyle={{ color: darkMode ? palette.light : palette.dark }}
                 style={{
                   borderColor: darkMode ? palette.light : palette.dark,

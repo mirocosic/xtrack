@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native"
 import palette from "../../utils/palette"
 
 export default StyleSheet.create({
-
   delete: {
     backgroundColor: "red",
     width: 30,
@@ -66,5 +65,4 @@ export default StyleSheet.create({
     alignSelf: "center",
     backgroundColor: palette.blue,
   },
-
 })
