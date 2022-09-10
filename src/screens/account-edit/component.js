@@ -5,6 +5,7 @@ import { get } from "lodash"
 import LinearGradient from "react-native-linear-gradient"
 import { BorderlessButton } from "react-native-gesture-handler"
 import { withSafeAreaInsets } from "react-native-safe-area-context"
+import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet"
 
 import { Screen, Header } from "../../components"
 import CategoryIcons from "../../components/category-icons"
@@ -83,7 +84,7 @@ class AccountEdit extends Component {
     const { account } = this.state
     return (
       <Screen>
-        <Header icon={<Icon type={account.icon} textStyle={{ color: account.color }} />} title={account.name} backBtn={isAndroid} />
+        <Header icon={<Icon type={account.icon} textStyle={{ color: account.color }} />} title={account.name} />
 
         <ScrollView scrollEnabled={false} style={{ paddingHorizontal: 20, paddingTop: 20 }} contentContainerStyle={{ flex: 1, justifyContent: "space-between" }}>
           <View>
@@ -110,14 +111,14 @@ class AccountEdit extends Component {
 
             <View style={[styles.inlineBetween, { margin: 10 }]}>
               <Copy>Icon</Copy>
-              <TouchableOpacity onPress={() => this.iconsModal.current.open()}>
+              <TouchableOpacity onPress={() => this.iconsModal.current.expand()}>
                 <Icon type={account.icon} textStyle={{ color: account.color, fontSize: 30 }} />
               </TouchableOpacity>
             </View>
 
             <View style={[styles.inlineBetween, { margin: 10 }]}>
               <Copy>Color</Copy>
-              <TouchableOpacity onPress={() => this.colorModal.current.open()}>
+              <TouchableOpacity onPress={() => this.colorModal.current.expand()}>
                 <View
                   style={{
                     width: 35,
@@ -231,7 +232,15 @@ class AccountEdit extends Component {
           </View>
         </ScrollView>
 
-        <Modalize adjustToContentHeight modalStyle={[styles.modal, darkMode && styles.modalDark]} ref={this.iconsModal}>
+        <BottomSheet
+          ref={this.iconsModal}
+          index={-1}
+          snapPoints={["40%"]}
+          onChange={() => {}}
+          enablePanDownToClose
+          backdropComponent={props => <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} pressBehavior="close" />}
+          backgroundStyle={{ backgroundColor: darkMode ? palette.darkGray : palette.light }}
+          handleIndicatorStyle={{ backgroundColor: darkMode ? palette.light : palette.dark }}>
           <View style={{ padding: 20 }}>
             <CategoryIcons
               selected={account.icon || "car"}
@@ -241,9 +250,17 @@ class AccountEdit extends Component {
               }}
             />
           </View>
-        </Modalize>
+        </BottomSheet>
 
-        <Modalize adjustToContentHeight modalStyle={[styles.modal, darkMode && styles.modalDark]} ref={this.colorModal}>
+        <BottomSheet
+          ref={this.colorModal}
+          index={-1}
+          snapPoints={["30%"]}
+          onChange={() => {}}
+          enablePanDownToClose
+          backdropComponent={props => <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} pressBehavior="close" />}
+          backgroundStyle={{ backgroundColor: darkMode ? palette.darkGray : palette.light }}
+          handleIndicatorStyle={{ backgroundColor: darkMode ? palette.light : palette.dark }}>
           <View style={styles.colorPicker}>
             {colors.map(color => (
               <TouchableOpacity
@@ -256,9 +273,17 @@ class AccountEdit extends Component {
               />
             ))}
           </View>
-        </Modalize>
+        </BottomSheet>
 
-        <Modalize adjustToContentHeight modalStyle={[styles.modal, darkMode && styles.modalDark]} ref={this.currencyModal}>
+        <BottomSheet
+          ref={this.currencyModal}
+          index={-1}
+          snapPoints={["40%"]}
+          onChange={() => {}}
+          enablePanDownToClose
+          backdropComponent={props => <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} pressBehavior="close" />}
+          backgroundStyle={{ backgroundColor: darkMode ? palette.darkGray : palette.light }}
+          handleIndicatorStyle={{ backgroundColor: darkMode ? palette.light : palette.dark }}>
           <View style={{ padding: 20 }}>
             <TouchableOpacity
               style={{ margin: 20 }}
@@ -287,7 +312,7 @@ class AccountEdit extends Component {
               <Copy style={{ fontSize: 14 }}>USD - United States Dollar</Copy>
             </TouchableOpacity>
           </View>
-        </Modalize>
+        </BottomSheet>
       </Screen>
     )
   }

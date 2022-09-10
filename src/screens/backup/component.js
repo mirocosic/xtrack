@@ -114,7 +114,7 @@ export default props => {
       <View style={{ flexDirection: "row" }}>
         <View style={{ width: 70 }}>
           <RectButton style={styles.exportButton} onPress={() => handleExport()}>
-            <Icon type="upload" />
+            <Icon type="download" />
           </RectButton>
         </View>
 

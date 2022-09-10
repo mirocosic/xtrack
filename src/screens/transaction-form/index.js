@@ -6,6 +6,7 @@ export default connect(
     darkMode: state.common.darkMode,
     theme: state.common.theme,
     baseCurrency: state.common.currency,
+    language: state.common.language,
     transactions: state.transactions.entries,
     transferMode: state.transactions.transferMode,
     selectedTransaction: state.transactions.selectedTransaction,

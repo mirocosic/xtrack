@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react"
 import { View, Dimensions, TouchableOpacity, Animated } from "react-native"
-import { Modalize } from "react-native-modalize"
 import { Portal } from "react-native-portalize"
 import { get, isEmpty } from "lodash"
 import moment from "moment"
+import "moment/locale/hr"
 import { PieChart } from "react-native-chart-kit"
 import { RectButton } from "react-native-gesture-handler"
 import BottomSheet, { BottomSheetBackdrop, BottomSheetFlatList, useBottomSheetDynamicSnapPoints } from "@gorhom/bottom-sheet"
@@ -84,7 +84,7 @@ export default props => {
   const [breakdownTransactions, setBreakdownTransactions] = useState([])
   const WIDTH = Dimensions.get("window").width
   const currentMonth = moment()
-  const { transactions, openOnForm, navigation, baseCurrency } = props
+  const { transactions, openOnForm, navigation, baseCurrency, language } = props
   const darkMode = useDarkTheme()
   const flatListRef = useRef()
   const breakdownModal = useRef()
@@ -169,6 +169,7 @@ export default props => {
       })
 
   const renderItem = ({ item }) => {
+    moment.locale(language.shortCode)
     const month = item.id >= 0 ? currentMonth.clone().add(item.id, "month") : currentMonth.clone().subtract(Math.abs(item.id), "month")
     const filterTransactions = type =>
       filterByMonth(
@@ -330,6 +331,8 @@ export default props => {
   useEffect(() => {
     setTimeout(() => openOnForm && navigation.navigate("TransactionForm", { clearForm: true }), 0)
   }, [])
+
+  moment.locale(language.shortCode)
 
   return (
     <Screen>

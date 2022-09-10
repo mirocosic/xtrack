@@ -26,13 +26,13 @@ const Settings = props => {
       {
         text: "English",
         onPress: () => {
-          setLanguage({ code: "eng", name: "English" })
+          setLanguage({ code: "eng", shortCode: "en", longCode: "en-US", name: "English" })
         },
       },
       {
         text: "Hrvatski",
         onPress: () => {
-          setLanguage({ code: "hrv", name: "Hrvatski" })
+          setLanguage({ code: "hrv", shortCode: "hr", longCode: "hr-HR", name: "Hrvatski" })
         },
       },
     ])

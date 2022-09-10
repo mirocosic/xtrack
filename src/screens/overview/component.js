@@ -151,9 +151,10 @@ class Overview extends Component {
     const sortedExpenses = this.sortByCategory(transactions.filter(t => t.type === "expense" && !t.isTransfer))
     const sortedTransfers = this.sortByCategory(transactions.filter(t => t.type === "transfer" && !t.isTransfer))
 
+    // todo: add insets to top margin
     return (
       <Screen>
-        <ScrollView style={{ paddingTop: 20, marginTop: 20 }} contentContainerStyle={{ paddingBottom: 40 }}>
+        <ScrollView style={{ paddingTop: 20, marginTop: 40 }} contentContainerStyle={{ paddingBottom: 40 }}>
           <View style={[styles.inlineStart, { paddingHorizontal: 10 }]}>
             <Title>Net worth: </Title>
             <Copy style={{ fontWeight: "bold", fontSize: 20 }}>{formatCurrency(this.calculateNetWorth(), baseCurrency)}</Copy>

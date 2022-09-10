@@ -1,5 +1,5 @@
-import { connect } from "react-redux";
-import Component from "./component";
+import { connect } from "react-redux"
+import Component from "./component"
 
 export default connect(
   state => ({
@@ -13,6 +13,7 @@ export default connect(
     income: state.transactions.income,
     theme: state.common.theme,
     allTrans: state.common.allTrans,
+    language: state.common.language,
   }),
 
   dispatch => ({
@@ -21,4 +22,4 @@ export default connect(
     clearSelectedCategory: () => dispatch({ type: "CLEAR_SELECTED_CATEGORY" }),
     openDrawer: () => dispatch({ type: "OPEN_DRAWER" }),
   }),
-)(Component);
+)(Component)

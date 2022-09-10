@@ -25,9 +25,12 @@ export default ({ withInsets, backBtn, backBtnPress, actionBtn, actionBtnPress, 
           <Icon type="chevronLeft" style={{ backgroundColor: "transparent" }} textStyle={{ color: "white" }} />
         </BorderlessButton>
       )}
-      <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", flexWrap: "wrap", marginHorizontal: 10 }}>
-        {icon}
-        <Title style={{ alignSelf: "center", color: "white" }}>{truncate(title)}</Title>
+      <View style={{ alignItems: "center", justifyContent: "center", marginHorizontal: 10 }}>
+        <View style={{ flexDirection: "row" }}>
+          {icon}
+          <Title style={{ alignSelf: "center", color: "white" }}>{truncate(title)}</Title>
+        </View>
+
         {subtitle ? <Subtitle style={{ textAlign: "center" }}>{subtitle}</Subtitle> : null}
       </View>
 

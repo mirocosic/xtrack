@@ -7,10 +7,14 @@ const defaultLocaleCode = Localization.locale.substring(0, 2)
 const defaultLanguage = {
   en: {
     code: "eng",
+    shortCode: "en",
+    longCode: "en-US",
     name: "English",
   },
   hr: {
     code: "hrv",
+    shortCode: "hr",
+    longCode: "hr-HR",
     name: "Hrvatski",
   },
 }

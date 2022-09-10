@@ -7,6 +7,7 @@ export default connect(
     theme: state.common.theme,
     openOnForm: state.common.openOnForm,
     baseCurrency: state.common.currency,
+    language: state.common.language,
     accounts: state.accounts.items,
     accountFilter: state.accounts.accountFilter,
     categories: state.categories.items,

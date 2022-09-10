@@ -1,10 +1,13 @@
 import React, { Component } from "react"
 import { Appearance, View, TextInput, TouchableOpacity, Keyboard, Alert } from "react-native"
-import { Calendar } from "react-native-calendars"
+import { Calendar, LocaleConfig } from "react-native-calendars"
 import { Modalize } from "react-native-modalize"
 import { connectActionSheet } from "@expo/react-native-action-sheet"
 
 import moment from "moment"
+import "moment/locale/de"
+import "moment/locale/fr"
+import "moment/locale/hr"
 import { get, truncate } from "lodash"
 
 import { Screen, Header, CustomKeyboard, TransactionType } from "../../components"
@@ -20,6 +23,24 @@ import palette from "../../utils/palette"
 import { isAndroid } from "../../utils/os-utils"
 import __ from "../../utils/translations"
 import styles from "./styles"
+
+// TODO: move this locale configs if possible
+LocaleConfig.locales.en = {
+  formatAccessibilityLabel: "dddd d 'of' MMMM 'of' yyyy",
+  monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+  monthNamesShort: ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"],
+  dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+  dayNamesShort: ["S", "M", "T", "W", "T", "F", "S"],
+}
+LocaleConfig.locales.hr = {
+  formatAccessibilityLabel: "dddd d 'of' MMMM 'of' yyyy",
+  monthNames: ["Siječanj", "Veljača", "Ožujak", "Travanj", "Svibanj", "Lipanj", "Srpanj", "Kolovoz", "Rujan", "Listopad", "Studeni", "Prosinac"],
+  monthNamesShort: ["sij", "velj", "ožu", "tra", "svi", "lip", "srp", "kol", "ruj", "lis", "stu", "pro"],
+  dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+  dayNamesShort: ["Ned", "Pon", "Uto", "Sri", "Čet", "Pet", "Sub"],
+}
+
+LocaleConfig.defaultLocale = "eng"
 
 class TransactionForm extends Component {
   state = {
@@ -239,9 +260,12 @@ class TransactionForm extends Component {
 
   render() {
     const { transaction, moreOptionsOpen, accountType } = this.state
-    const { navigation, changeTransactionAmount, theme, accounts, labels, baseCurrency } = this.props
+    const { navigation, changeTransactionAmount, theme, accounts, labels, baseCurrency, language } = this.props
     const isTransfer = transaction.type === "transfer"
     const darkMode = theme === "system" ? Appearance.getColorScheme() === "dark" : theme === "dark"
+
+    LocaleConfig.defaultLocale = language.shortCode
+    moment.locale(language.shortCode)
 
     return (
       <Screen style={{ paddingLeft: 0, paddingRight: 0 }}>

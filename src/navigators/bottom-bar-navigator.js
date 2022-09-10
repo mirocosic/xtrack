@@ -1,4 +1,5 @@
 import React from "react"
+import { connect } from "react-redux"
 import ReactNativeHapticFeedback from "react-native-haptic-feedback"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { TouchableOpacity } from "react-native-gesture-handler"
@@ -26,7 +27,7 @@ const AddRedirector = ({ navigation }) => {
 
 const Tab = createBottomTabNavigator()
 
-export default () => (
+const Component = () => (
   <Tab.Navigator
     screenOptions={{
       lazy: false,
@@ -120,3 +121,10 @@ export default () => (
     />
   </Tab.Navigator>
 )
+
+export default connect(
+  state => ({
+    language: state.common.language,
+  }),
+  null,
+)(Component)

@@ -14,7 +14,9 @@ import transactionsHeader from "../../../assets/images/transactions-header.png"
 import styles from "./styles"
 
 const hasFilterLabel = (item, appliedLabelsFilter) => {
-  if (!item.labels.length) { return false }
+  if (!item.labels.length) {
+    return false
+  }
   let hasFilterLabel = false
   item.labels.forEach(label => {
     if (appliedLabelsFilter.find(filter => filter.id === label.id)) {
@@ -25,7 +27,6 @@ const hasFilterLabel = (item, appliedLabelsFilter) => {
 }
 
 class Transactions extends Component {
-
   scrollView = React.createRef()
   scrollY = new Animated.Value(0)
 
@@ -35,23 +36,17 @@ class Transactions extends Component {
   }
 
   renderItem = ({ item }) => {
-    return (
-      <Transaction
-        key={item.id}
-        transaction={item}
-        toggleScroll={val => this.setState({ scrollEnabled: val })}
-        navigation={this.props.navigation}/>
-    )
+    return <Transaction key={item.id} transaction={item} toggleScroll={val => this.setState({ scrollEnabled: val })} navigation={this.props.navigation} />
   }
 
   render() {
     const { searchTerm } = this.state
-    const { navigation, accountFilter, categoryFilter, appliedLabelsFilter, entries, theme, allTrans } = this.props
+    const { navigation, accountFilter, categoryFilter, appliedLabelsFilter, entries, theme, allTrans, language } = this.props
     const darkMode = theme === "system" ? Appearance.getColorScheme() === "dark" : theme === "dark"
     const filtersApplied = accountFilter || categoryFilter || appliedLabelsFilter.length || false
 
     const transactions = entries
-      .filter(item => allTrans ? true : !item.isTransfer)
+      .filter(item => (allTrans ? true : !item.isTransfer))
       .filter(item => !accountFilter || !get(item, "account") || get(item, "accountId") === accountFilter.id)
       .filter(item => !categoryFilter || get(item, "categoryId") === categoryFilter.id)
       .filter(item => appliedLabelsFilter.length === 0 || hasFilterLabel(item, appliedLabelsFilter))
@@ -60,7 +55,7 @@ class Transactions extends Component {
     const sectionsList = transactions
       .reduce((sections, transaction) => {
         const date = new Date(transaction.timestamp)
-        const sectionTitle = date.toLocaleDateString("en-US", {
+        const sectionTitle = date.toLocaleDateString(language.longCode, {
           month: "long",
           year: "numeric",
         })
@@ -86,38 +81,38 @@ class Transactions extends Component {
 
     return (
       <Screen>
-        <Animated.View style={{ position: "relative", zIndex: 100, width: "100%"}}>
-          <Header
-            title="Transactions"
-            withInsets
-            style={{  width: "100%", alignItems: "center", justifyContent: "center"}}>
-            <TouchableOpacity
-              onPress={() => navigation.openDrawer()}
-              style={{ position: "absolute", right: 10, bottom: 5 }}>
-              <Icon
-                type="filter"
-                style={{ backgroundColor: "transparent" }}
-                textStyle={{ fontSize: 12, color: filtersApplied ? palette.red : palette.light}}/>
+        <Animated.View style={{ position: "relative", zIndex: 100, width: "100%" }}>
+          <Header title="Transactions" withInsets style={{ width: "100%", alignItems: "center", justifyContent: "center" }}>
+            <TouchableOpacity onPress={() => navigation.openDrawer()} style={{ position: "absolute", right: 10, bottom: 5 }}>
+              <Icon type="filter" style={{ backgroundColor: "transparent" }} textStyle={{ fontSize: 12, color: filtersApplied ? palette.red : palette.light }} />
             </TouchableOpacity>
           </Header>
         </Animated.View>
 
         {!entries.length ? (
-          <View style={{ flex: 1, alignItems: "center", justifyContent: "center", margin: 20,}}>
+          <View style={{ flex: 1, alignItems: "center", justifyContent: "center", margin: 20 }}>
             <Copy style={{ textAlign: "center" }}>Hey! Seems like you don&apos;t have any transactions.</Copy>
             <Copy>Add some!</Copy>
           </View>
         ) : (
-          <View style={{ paddingTop: 0}}>
-            <View style={[{position: "absolute", width: "100%", height: 200, top: -20},
-                          {backgroundColor: darkMode ? palette.darkGray : palette.blue}]}>
-              <Animated.Image source={transactionsHeader} resizeMode="contain"
-                   style={[{backgroundColor: darkMode ? palette.darkGray : palette.blue},
-                           {position: "absolute", width: "100%", height: 200},
-                           {opacity: this.scrollY.interpolate({inputRange: [0, 100], outputRange: [1, 0]})},
-                           {transform: [{ translateY: this.scrollY.interpolate({inputRange: [-100, 0, 100], outputRange:[50, 0, 0], extrapolateRight: "clamp"})},
-                                        { scaleX: this.scrollY.interpolate({inputRange: [-100, 0], outputRange:[1.4, 1], extrapolateRight: "clamp"})},
-                                        { scaleY: this.scrollY.interpolate({inputRange: [-100, 0], outputRange:[1.4, 1], extrapolateRight: "clamp"})}]}]}/>
+          <View style={{ paddingTop: 0 }}>
+            <View style={[{ position: "absolute", width: "100%", height: 200, top: -20 }, { backgroundColor: darkMode ? palette.darkGray : palette.blue }]}>
+              <Animated.Image
+                source={transactionsHeader}
+                resizeMode="contain"
+                style={[
+                  { backgroundColor: darkMode ? palette.darkGray : palette.blue },
+                  { position: "absolute", width: "100%", height: 200 },
+                  { opacity: this.scrollY.interpolate({ inputRange: [0, 100], outputRange: [1, 0] }) },
+                  {
+                    transform: [
+                      { translateY: this.scrollY.interpolate({ inputRange: [-100, 0, 100], outputRange: [50, 0, 0], extrapolateRight: "clamp" }) },
+                      { scaleX: this.scrollY.interpolate({ inputRange: [-100, 0], outputRange: [1.4, 1], extrapolateRight: "clamp" }) },
+                      { scaleY: this.scrollY.interpolate({ inputRange: [-100, 0], outputRange: [1.4, 1], extrapolateRight: "clamp" }) },
+                    ],
+                  },
+                ]}
+              />
             </View>
 
             {/* <View style={[styles.searchWrap, darkMode && styles.searchWrapDark]}>
@@ -135,9 +130,9 @@ class Transactions extends Component {
                   clearButtonMode="while-editing"/>
               </View>
             </View> */}
-            
+
             <Animated.SectionList
-              contentContainerStyle={{paddingBottom: safePaddingBottom(110), paddingTop: 160 }}
+              contentContainerStyle={{ paddingBottom: safePaddingBottom(110), paddingTop: 160 }}
               sections={sectionsList}
               initialNumToRender={20}
               renderSectionHeader={({ section: { date, title } }) => (
@@ -145,14 +140,12 @@ class Transactions extends Component {
                   <Copy>{title}</Copy>
                 </View>
               )}
-              renderSectionFooter={() => (
-                <View style={{borderBottomWidth: 1, borderColor: palette.gray}}/>
-              )}
-              ItemSeparatorComponent={() => (<View style={styles.separator} />)}
+              renderSectionFooter={() => <View style={{ borderBottomWidth: 1, borderColor: palette.gray }} />}
+              ItemSeparatorComponent={() => <View style={styles.separator} />}
               renderItem={this.renderItem}
               keyExtractor={item => item.id}
-              onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: this.scrollY } } }], { useNativeDriver: true })}/>
-
+              onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: this.scrollY } } }], { useNativeDriver: true })}
+            />
           </View>
         )}
       </Screen>
