@@ -1,8 +1,9 @@
-import { StyleSheet, Dimensions } from "react-native"
+import { StyleSheet, Dimensions } from "react-native";
 import palette from "../../utils/palette"
 import globalStyles from "../../utils/styles"
 
 export default StyleSheet.create({
+
   ...globalStyles,
 
   accountCard: {
@@ -40,7 +41,7 @@ export default StyleSheet.create({
   },
 
   row: {
-    flex: 1,
+    display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -56,42 +57,21 @@ export default StyleSheet.create({
   chartTab: {
     paddingVertical: 5,
     paddingHorizontal: 10,
-    margin: 10,
+    margin: 10, 
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: "white",
+    borderColor: "white"
   },
 
   chartTabSelected: {
-    backgroundColor: palette.blue,
+    backgroundColor: palette.blue
   },
 
   separator: {
     borderBottomWidth: 1,
-    borderColor: palette.gray,
-  },
+    borderColor: palette.gray
 
-  sectionWrap: {
-    flexDirection: "row",
-    flex: 1,
-    backgroundColor: palette.white,
+  }
 
-    padding: 10,
-    marginVertical: 10,
-    borderRadius: 10,
-  },
 
-  sectionWrapDark: {
-    backgroundColor: palette.darkGray,
-  },
-
-  section: {
-    flex: 1,
-  },
-
-  sectionIndicator: {
-    backgroundColor: palette.lightGray,
-    width: 1,
-    marginLeft: 5,
-  },
 })
