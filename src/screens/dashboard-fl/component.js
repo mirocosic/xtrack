@@ -7,6 +7,7 @@ import "moment/locale/hr"
 import { PieChart } from "react-native-chart-kit"
 import { RectButton } from "react-native-gesture-handler"
 import BottomSheet, { BottomSheetBackdrop, BottomSheetFlatList, useBottomSheetDynamicSnapPoints } from "@gorhom/bottom-sheet"
+import Collapsible from "react-native-collapsible"
 
 import { Screen, Icon, Copy, Title, Transaction } from "../../components"
 import styles from "./styles"
@@ -90,6 +91,9 @@ export default props => {
   const breakdownModal = useRef()
   const [showExpensesChart, setShowExpensesChart] = useState(true)
   const insets = useSafeAreaInsets()
+  const [expensesCollapsed, setExpensesCollapsed] = useState(true)
+  const [incomeCollapsed, setIncomeCollapsed] = useState(true)
+  const [transfersCollapsed, setTransfersCollapsed] = useState(true)
 
   const addViewItems = () => {
     setItems(items => {
@@ -220,52 +224,117 @@ export default props => {
           )}
         </View>
 
-        <TouchableOpacity
-          style={[styles.inlineBetween, { marginBottom: 10 }]}
-          onPress={() => {
-            setBreakdownTransactions(currentMonthIncome)
-            breakdownModal.current.snapToIndex(0)
-          }}>
-          <Copy style={{ fontSize: 18 }}>Income: </Copy>
-          <Copy style={{ fontSize: 18, color: palette.green }}>{formatCurrency(income, baseCurrency)}</Copy>
-        </TouchableOpacity>
+        <View style={{ marginBottom: 20 }}>
+          {!isEmpty(sortedExpenses || !isEmpty(sortedIncome)) && (
+            <PieChart
+              data={prepDataForPieChart(showExpensesChart ? sortedExpenses : sortedIncome)}
+              width={Dimensions.get("window").width} // from react-native
+              height={180}
+              accessor="amount"
+              chartConfig={{
+                color: (opacity = 1) => `rgba(150, 215, 115, ${opacity})`,
+                style: {
+                  borderRadius: 16,
+                },
+              }}
+              style={{
+                marginVertical: 8,
+                borderRadius: 16,
+              }}
+            />
+          )}
 
-        {renderExpenses(sortedIncome, currentMonthIncome)}
+          <View style={[styles.inline]}>
+            {!isEmpty(sortedExpenses) && (
+              <RectButton onPress={() => setShowExpensesChart(true)} style={[styles.chartTab, showExpensesChart && styles.chartTabSelected]}>
+                <Copy style={showExpensesChart && { color: "white" }}>Expenses</Copy>
+              </RectButton>
+            )}
 
-        <TouchableOpacity
-          style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}
-          onPress={() => {
-            setBreakdownTransactions(currentMonthExpenses)
-            breakdownModal.current.snapToIndex(0)
-          }}>
-          <Copy style={{ fontSize: 18 }}>Expenses: </Copy>
-          <Copy style={{ fontSize: 18, color: palette.red }}>{formatCurrency(expenses, baseCurrency)}</Copy>
-        </TouchableOpacity>
-
-        {renderExpenses(sortedExpenses, currentMonthExpenses)}
-
-        {currentMonthTransfers.length > 0 && (
-          <TouchableOpacity
-            style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}
-            onPress={() => {
-              setBreakdownTransactions(currentMonthTransfers)
-              breakdownModal.current.snapToIndex(0)
-            }}>
-            <Copy style={{ fontSize: 18 }}>Transfers: </Copy>
-            <Copy style={{ fontSize: 18 }}>{formatCurrency(transfers, baseCurrency)}</Copy>
-          </TouchableOpacity>
-        )}
-
-        {renderExpenses(sortedTransfers, currentMonthTransfers)}
-
-        <View style={[styles.inlineBetween, { marginTop: 30, paddingTop: 10, borderTopWidth: 1 }]}>
-          <Copy style={{ fontSize: 18 }}>Balance: </Copy>
-          <Copy style={{ fontSize: 18, color: palette.blue }}>{formatCurrency(income - expenses, baseCurrency)}</Copy>
+            {!isEmpty(sortedIncome) && (
+              <RectButton onPress={() => setShowExpensesChart(false)} style={[styles.chartTab, !showExpensesChart && styles.chartTabSelected, darkMode && styles.chartTabDark]}>
+                <Copy style={!showExpensesChart && { color: "white" }}>Income</Copy>
+              </RectButton>
+            )}
+          </View>
         </View>
 
-        <View style={[styles.inlineBetween, styles.alignCenter]}>
-          <Copy style={{ fontSize: 18 }}>Savings Rate: </Copy>
-          <Copy style={{ fontSize: 18, color: palette.blue }}>{calcSavingsRate(income, expenses)}</Copy>
+        <View style={[styles.sectionWrap, darkMode && styles.sectionWrapDark]}>
+          <View style={styles.section}>
+            <TouchableOpacity
+              style={[styles.inlineBetween, { marginBottom: 0 }]}
+              onPress={() => {
+                setIncomeCollapsed(!incomeCollapsed)
+                //setBreakdownTransactions(currentMonthIncome)
+                //breakdownModal.current.snapToIndex(0)
+              }}>
+              <Copy style={{ fontSize: 18 }}>Income </Copy>
+              <Copy style={{ fontSize: 18, color: palette.green }}>{formatCurrency(income, baseCurrency)}</Copy>
+            </TouchableOpacity>
+
+            <Collapsible collapsed={incomeCollapsed} style={{ flexDirection: "row", flex: 1, marginTop: 5 }}>
+              <View style={styles.sectionIndicator} />
+              <View style={{ flex: 1 }}>{renderExpenses(sortedIncome, currentMonthIncome)}</View>
+            </Collapsible>
+          </View>
+        </View>
+
+        <View style={[styles.sectionWrap, darkMode && styles.sectionWrapDark]}>
+          <View style={styles.section}>
+            <TouchableOpacity
+              style={[styles.inlineBetween, { marginBottom: 0 }]}
+              onPress={() => {
+                setExpensesCollapsed(!expensesCollapsed)
+                //setBreakdownTransactions(currentMonthExpenses)
+                //breakdownModal.current.snapToIndex(0)
+              }}>
+              <Copy style={{ fontSize: 18 }}>Expenses </Copy>
+              <Copy style={{ fontSize: 18, color: palette.red }}>{formatCurrency(expenses, baseCurrency)}</Copy>
+            </TouchableOpacity>
+
+            <Collapsible collapsed={expensesCollapsed} style={{ flexDirection: "row", flex: 1, marginTop: 5 }}>
+              <TouchableOpacity onPress={() => setExpensesCollapsed(true)} style={styles.sectionIndicator} />
+              <View style={{ flex: 1 }}>{renderExpenses(sortedExpenses, currentMonthExpenses)}</View>
+            </Collapsible>
+          </View>
+        </View>
+
+        {currentMonthTransfers.length > 0 && (
+          <View style={[styles.sectionWrap, darkMode && styles.sectionWrapDark]}>
+            <View style={styles.section}>
+              <TouchableOpacity
+                style={[styles.inlineBetween, { marginBottom: 0, paddingTop: 0 }]}
+                onPress={() => {
+                  setTransfersCollapsed(!transfersCollapsed)
+                  //setBreakdownTransactions(currentMonthTransfers)
+                  //breakdownModal.current.snapToIndex(0)
+                }}>
+                <Copy style={{ fontSize: 18 }}>Transfers: </Copy>
+                <Copy style={{ fontSize: 18 }}>{formatCurrency(transfers, baseCurrency)}</Copy>
+              </TouchableOpacity>
+
+              <Collapsible collapsed={transfersCollapsed} style={{ flexDirection: "row", flex: 1, marginTop: 5 }}>
+                <TouchableOpacity onPress={() => setTransfersCollapsed(true)} style={styles.sectionIndicator} />
+                <View style={{ flex: 1 }}>{renderExpenses(sortedTransfers, currentMonthTransfers)}</View>
+              </Collapsible>
+            </View>
+          </View>
+        )}
+
+        <View style={[styles.separator, { marginVertical: 10 }, darkMode && styles.separatorDark]} />
+
+        <View style={[styles.sectionWrap, darkMode && styles.sectionWrapDark]}>
+          <View style={{ flex: 1 }}>
+            <View style={[styles.inlineBetween]}>
+              <Copy style={{ fontSize: 18 }}>Balance </Copy>
+              <Copy style={{ fontSize: 18, color: palette.blue }}>{formatCurrency(income - expenses, baseCurrency)}</Copy>
+            </View>
+
+            <View style={[styles.inlineBetween, styles.alignCenter, { marginTop: 5 }]}>
+              <Copy style={{ fontSize: 14 }}>Savings Rate </Copy>
+              <Copy style={{ fontSize: 14, color: palette.blue }}>{calcSavingsRate(income, expenses)}</Copy>
+            </View>
+          </View>
         </View>
 
         <View style={{ paddingTop: 50, paddingBottom: 50 }}>
@@ -292,37 +361,6 @@ export default props => {
               },
             }}
           /> */}
-
-          <View style={[styles.inline]}>
-            {!isEmpty(sortedExpenses) && (
-              <RectButton onPress={() => setShowExpensesChart(true)} style={[styles.chartTab, showExpensesChart && styles.chartTabSelected]}>
-                <Copy style={showExpensesChart && { color: "white" }}>Expenses</Copy>
-              </RectButton>
-            )}
-
-            {!isEmpty(sortedIncome) && (
-              <RectButton onPress={() => setShowExpensesChart(false)} style={[styles.chartTab, !showExpensesChart && styles.chartTabSelected, darkMode && styles.chartTabDark]}>
-                <Copy style={!showExpensesChart && { color: "white" }}>Income</Copy>
-              </RectButton>
-            )}
-          </View>
-
-          <PieChart
-            data={prepDataForPieChart(showExpensesChart ? sortedExpenses : sortedIncome)}
-            width={Dimensions.get("window").width} // from react-native
-            height={220}
-            accessor="amount"
-            chartConfig={{
-              color: (opacity = 1) => `rgba(150, 215, 115, ${opacity})`,
-              style: {
-                borderRadius: 16,
-              },
-            }}
-            style={{
-              marginVertical: 8,
-              borderRadius: 16,
-            }}
-          />
         </View>
       </Animated.ScrollView>
     )
