@@ -1,16 +1,14 @@
 import moment from "moment"
 import { get, reject } from "lodash"
-import initialState from "./initial-state";
+import initialState from "./initial-state"
 import { makeUUID } from "../../utils/helper-gnomes"
 
 const transactions = (state = initialState, action) => {
-
   const transaction = action.transaction || {}
   const { timestamp, accountId, fromAccountId, amount, note, categoryId, labels, parentTransactionId } = transaction
   const newId = makeUUID()
 
   switch (action.type) {
-
     case "ADD_TRANSACTION":
       return {
         ...state,
@@ -27,8 +25,10 @@ const transactions = (state = initialState, action) => {
     case "EDIT_TRANSACTION":
       return {
         ...state,
-        entries: state.entries.map((item) => {
-          if (item.id !== transaction.id) { return item }
+        entries: state.entries.map(item => {
+          if (item.id !== transaction.id) {
+            return item
+          }
 
           return transaction
         }),
@@ -37,8 +37,8 @@ const transactions = (state = initialState, action) => {
     case "EDIT_ALL_RECURRING_TRANSACTIONS":
       return {
         ...state,
-        entries: state.entries.map((item) => {
-          if (item.parentTransactionId !== transaction.parentTransactionId) { 
+        entries: state.entries.map(item => {
+          if (item.parentTransactionId !== transaction.parentTransactionId) {
             return item
           } else if (item.id === transaction.id) {
             return transaction
@@ -46,23 +46,23 @@ const transactions = (state = initialState, action) => {
             return {
               ...transaction,
               id: item.id,
-              timestamp: item.timestamp
+              timestamp: item.timestamp,
             }
           }
-        })
+        }),
       }
 
     case "EDIT_FUTURE_RECURRING_TRANSACTIONS":
       return {
         ...state,
-        entries: state.entries.map((item) => {
+        entries: state.entries.map(item => {
           if (item.parentTransactionId !== transaction.parentTransactionId) {
-            return item 
+            return item
           } else if (item.timestamp > transaction.timestamp) {
             return {
               ...transaction,
               id: item.id,
-              timestamp: item.timestamp
+              timestamp: item.timestamp,
             }
           } else {
             return item
@@ -79,18 +79,15 @@ const transactions = (state = initialState, action) => {
     case "DELETE_TRANSACTION":
       return {
         ...state,
-        entries: reject(state.entries, item => item.id === action.transaction.id || item.parentTransactionId === action.transaction.id)
+        entries: reject(state.entries, item => item.id === action.transaction.id || item.parentTransactionId === action.transaction.id),
       }
 
     case "REMOVE_ALL_RECURRING_TRANSACTIONS":
-
       // delete called on child transaction
       if (action.transaction.parentTransactionId) {
         return {
           ...state,
-          entries: state.entries.filter(
-            item => item.parentTransactionId !== action.transaction.parentTransactionId,
-          ).filter(item => item.id !== action.transaction.parentTransactionId),
+          entries: state.entries.filter(item => item.parentTransactionId !== action.transaction.parentTransactionId).filter(item => item.id !== action.transaction.parentTransactionId),
         }
       }
 
@@ -101,14 +98,13 @@ const transactions = (state = initialState, action) => {
       }
 
     case "REMOVE_FUTURE_RECURRING_TRANSACTIONS":
-
       // delete called on child transaction
       if (action.transaction.parentTransactionId) {
         return {
           ...state,
-          entries: state.entries.filter(
-            item => item.parentTransactionId !== action.transaction.parentTransactionId || item.timestamp < action.transaction.timestamp,
-          ).filter(item => item.id !== action.transaction.parentTransactionId || item.timestamp < action.transaction.timestamp),
+          entries: state.entries
+            .filter(item => item.parentTransactionId !== action.transaction.parentTransactionId || item.timestamp < action.transaction.timestamp)
+            .filter(item => item.id !== action.transaction.parentTransactionId || item.timestamp < action.transaction.timestamp),
         }
       }
 
@@ -135,7 +131,7 @@ const transactions = (state = initialState, action) => {
             note,
             categoryId,
             labels,
-            parentTransactionId: transferTransactionId
+            parentTransactionId: transferTransactionId,
           },
           {
             id: makeUUID(),
@@ -148,7 +144,7 @@ const transactions = (state = initialState, action) => {
             note,
             categoryId,
             labels,
-            parentTransactionId: transferTransactionId
+            parentTransactionId: transferTransactionId,
           },
           {
             id: transferTransactionId,
@@ -210,13 +206,22 @@ const transactions = (state = initialState, action) => {
 
     // prototype restore, not real thing
     case "RESTORE_BACKUP":
-      //console.log(action.data.transactions.entries)
       return action.data.transactions
 
-    default:
-      return state;
-  }
+    case "CONVERT_HRK":
+      return {
+        ...state,
+        entries: state.entries.map(item => {
+          return {
+            ...item,
+            amount: item.amount / 7.53,
+          }
+        }),
+      }
 
+    default:
+      return state
+  }
 }
 
-export default transactions;
+export default transactions

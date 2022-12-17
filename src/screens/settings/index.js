@@ -45,6 +45,7 @@ export default connect(
     accounts: state.accounts.items,
     categories: state.categories.items,
     appVersion: state.common.appVersion,
+    hrkConverted: state.common.hrkConverted,
   }),
 
   dispatch => ({
@@ -53,6 +54,7 @@ export default connect(
     toggleAllTrans: () => dispatch({ type: "TOGGLE_ALL_TRANS" }),
     setLanguage: language => dispatch({ type: "SET_LANGUAGE", language }),
     setBaseCurrency: currency => dispatch({ type: "SET_BASE_CURRENCY", currency }),
+    convertTransactions: () => dispatch({ type: "CONVERT_HRK" }),
     setTheme: theme => {
       changeStatusBar(theme)
       dispatch({ type: "SET_THEME", theme })

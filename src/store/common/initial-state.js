@@ -29,5 +29,5 @@ export default {
   openOnForm: false,
   allTrans: false,
   language: defaultLanguage[defaultLocaleCode],
-  currency: "HRK",
+  currency: "EUR",
 }

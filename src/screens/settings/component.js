@@ -86,7 +86,7 @@ const Settings = props => {
     }
   }
 
-  const { navigation, openOnForm, toggleOpenOnForm, theme, language, allTrans, toggleAllTrans, currency, setBaseCurrency } = props
+  const { navigation, openOnForm, toggleOpenOnForm, theme, language, allTrans, toggleAllTrans, currency, setBaseCurrency, hrkConverted, convertTransactions } = props
 
   const insets = useSafeAreaInsets()
 
@@ -103,7 +103,6 @@ const Settings = props => {
             <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
           </RectButton>
         </View>
-
         <View style={styles.settingWrap}>
           <RectButton onPress={() => navigation.navigate("Accounts")} activeOpacity={useDarkTheme() ? 0.5 : 0.1} rippleColor={useDarkTheme() ? palette.darkGray : palette.lightBlue} style={styles.settingContent}>
             <View>
@@ -113,7 +112,6 @@ const Settings = props => {
             <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
           </RectButton>
         </View>
-
         <View style={styles.settingWrap}>
           <RectButton onPress={() => navigation.navigate("Labels")} activeOpacity={useDarkTheme() ? 0.5 : 0.1} rippleColor={useDarkTheme() ? palette.darkGray : palette.lightBlue} style={styles.settingContent}>
             <View>
@@ -123,7 +121,6 @@ const Settings = props => {
             <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
           </RectButton>
         </View>
-
         <View style={styles.settingWrap}>
           <RectButton onPress={() => navigation.navigate("Backup")} activeOpacity={useDarkTheme() ? 0.5 : 0.1} rippleColor={useDarkTheme() ? palette.darkGray : palette.lightBlue} style={styles.settingContent}>
             <View style={{ maxWidth: 300 }}>
@@ -133,7 +130,6 @@ const Settings = props => {
             <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
           </RectButton>
         </View>
-
         <View style={styles.settingWrap}>
           <RectButton onPress={() => navigation.navigate("Onboarding")} activeOpacity={useDarkTheme() ? 0.5 : 0.1} rippleColor={useDarkTheme() ? palette.darkGray : palette.lightBlue} style={styles.settingContent}>
             <View>
@@ -144,7 +140,6 @@ const Settings = props => {
             <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
           </RectButton>
         </View>
-
         <View style={styles.settingWrap}>
           <RectButton onPress={() => generateTransactions()} activeOpacity={useDarkTheme() ? 0.5 : 0.1} rippleColor={useDarkTheme() ? palette.darkGray : palette.lightBlue} style={styles.settingContent}>
             <View>
@@ -155,6 +150,18 @@ const Settings = props => {
             <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
           </RectButton>
         </View>
+        {!hrkConverted ? (
+          <View style={styles.settingWrap}>
+            <RectButton onPress={() => convertTransactions()} style={styles.settingContent}>
+              <View>
+                <Copy>One time data HRK->EUR conversion</Copy>
+                <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>Convert HRK -> EUR (7,53)</Copy>
+              </View>
+
+              <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
+            </RectButton>
+          </View>
+        ) : null}
 
         <View style={{ padding: 20 }}>
           <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
@@ -203,17 +210,6 @@ const Settings = props => {
           <TouchableOpacity
             style={{ margin: 20 }}
             onPress={() => {
-              //this.setState({ account: { ...account, currency: "HRK" } })
-              setBaseCurrency("HRK")
-              currencyModal.current.close()
-            }}>
-            <Copy style={{ fontSize: 14 }}>HRK - Croatian Kuna</Copy>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={{ margin: 20 }}
-            onPress={() => {
-              //this.setState({ account: { ...account, currency: "EUR" } })
               setBaseCurrency("EUR")
               currencyModal.current.close()
             }}>
@@ -223,7 +219,6 @@ const Settings = props => {
           <TouchableOpacity
             style={{ margin: 20 }}
             onPress={() => {
-              //this.setState({ account: { ...account, currency: "USD" } })
               setBaseCurrency("USD")
               currencyModal.current.close()
             }}>

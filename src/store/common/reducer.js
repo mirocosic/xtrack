@@ -65,6 +65,12 @@ const common = (state = initialState, action) => {
         currency: action.currency,
       }
 
+    case "CONVERT_HRK":
+      return {
+        ...state,
+        hrkConverted: true,
+      }
+
     default:
       return state
   }
