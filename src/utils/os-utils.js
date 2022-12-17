@@ -1,6 +1,6 @@
 import { Platform } from "react-native"
 
-const appVersion = "2.0.1 (9)"
+const appVersion = "2.0.2 (10)"
 
 const OS_ANDROID = "android"
 const OS_IOS = "ios"
