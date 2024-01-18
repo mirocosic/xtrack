@@ -18,7 +18,7 @@
     "@react-navigation/native": "^6.0.12",
     "@react-navigation/native-stack": "^6.8.0",
     "@react-navigation/stack": "^6.2.3",
-    "expo": "^46.0.10",
+    "expo": "^50.0.0",
     "expo-localization": "~13.1.0",
     "intl": "^1.2.5",
     "lodash": "^4.17.21",
